@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html ng-app="OhSnapApp">
+	<head>
+	    <title>@ViewBag.Title</title>
+	    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+	    <link rel="stylesheet" href="~/Content/select.min.css">
+        <link rel="stylesheet" href="~/Content/bootstrap-datepicker.min.css" />	
+
+	    <script src="~/Scripts/jquery-2.1.4.js"></script>
+	    <script src="~/Scripts/angular.js"></script>
+	    <script src="~/Scripts/angular-resource.js"></script>
+	    <script src="~/Scripts/bootstrap.min.js"></script>
+	    <script src="~/Scripts/underscore.min.js"></script>
+	    <script src="~/Scripts/angular-sanitize.min.js"></script>
+	    <script src="~/Scripts/select.min.js"></script>
+        <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+
+	    <script src="~/ts/app.js"></script>
+	    <script src="~/ts/services.js"></script>
+	    <script src="~/ts/controllers.js"></script>
+	</head>
+	<body>
+	  <div class="container-fluid" ng-controller="AddProcedureCtrl">
+	    <h2>Add procedure</h2>
+	    <hr>
+
+	    <div class="row">
+		    <div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h2>Add patient</h2></div>
+					<div class="panel-body" ng-controller="NewPatientCtrl">
+						<form class="form-horizontal">
+					  		<div class="form-group">
+	    						<label for="patientFirstName" class="control-label col-sm-2">First name</label>
+	    						<div class="col-sm-10">
+	    							<input type="text" class="form-control" id="patientFirstName" placeholder="First name" ng-model="newPatient.FirstName">
+	    						</div>
+	  						</div>
+							<div class="form-group">
+	    						<label for="patientLastName" class="control-label col-sm-2">Last name</label>
+	    						<div class="col-sm-10">
+	    							<input type="text" class="form-control" id="patientLastName" placeholder="Last name" ng-model="newPatient.LastName">
+	    						</div>
+	  						</div>
+	  						<div class="form-group">
+	    						<label for="patientAge" class="control-label col-sm-2">Age</label>
+	    						<div class="col-md-10">
+	    							<input type="number" class="form-control" id="patientAge" min="0" placeholder="Age" ng-model="newPatient.Age">
+	    						</div>
+	  						</div>
+	    					<button type="submit" 
+	    					        class="btn btn-default" 
+	    					        ng-click="addPatientAndClear();" 
+	    					        ng-disabled="newPatient.FirstName.length == 0 || newPatient.LastName.length == 0 || newPatient.Age == null">Submit</button>
+						</form>
+				    </div>
+			    </div>
+		    </div>
+		    <div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h2>Add Injury</h2></div>
+					<div class="panel-body" ng-controller="NewInjuryCtrl">
+						<form class="form-horizontal">
+					  		<div class="form-group">
+	    						<label for="injuryAOCode" class="control-label col-sm-2">AO Code</label>
+	    						<div class="col-sm-10">
+	    							<input type="text" class="form-control" id="injuryAOCode" placeholder="AO Code" ng-model="newInjury.AOCode">
+	    						</div>
+	  						</div>
+							<div class="form-group">
+	    						<label for="injuryDate" class="control-label col-sm-2">Date</label>
+	    						<div class="col-sm-10">
+	    							<input data-provide="datepicker" data-date-format="dd.mm.yyyy" class="form-control" id="injuryDate" ng-model="newInjury.InjuryDate">
+	    						</div>
+	  						</div>
+	  						<div class="form-group">
+	    						<label for="injuryHour" class="control-label col-sm-2">Hour</label>
+	    						<div class="col-sm-10">
+	    							<input type="number" min="0" max="23" class="form-control" id="injuryHour" ng-model="newInjury.InjuryHour" placeholder="Hour of injury...">
+	    						</div>
+	  						</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2">Patient</label>
+								<div class="col-sm-10">
+					    			<ui-select ng-model="newInjury.Patient"
+		             						   theme="bootstrap">
+		    							<ui-select-match placeholder="Select a patient...">
+		    								<div ng-if="newInjury.Patient != null">
+		    									{{formatPatient(newInjury.Patient)}}
+		    								</div>
+		    							</ui-select-match>
+		    							<ui-select-choices repeat="p in patients | filter:$select.search">
+		      								<div ng-bind-html="formatPatient(p)"></div>
+		    							</ui-select-choices>
+		  							</ui-select>
+		  						</div>
+	  						</div>
+	    					<button type="submit" 
+	    					        class="btn btn-default" 
+	    					        ng-click="addInjuryAndClear();" 
+	    					        ng-disabled="newInjury.AOCode.length == 0 || newInjury.InjuryDate == null || newInjury.InjuryHour == null">Submit</button>
+						</form>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+
+	    <div class="row">
+	        <div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h2>Patients</h2></div>
+					<div class="panel-body">
+						<table class="table">
+							<thead>
+								<th>First name</th>
+								<th>Last name</th>
+								<th></th>
+							</thead>
+						    <tr ng-repeat="patient in patients">
+								<td>{{patient.FirstName}}</td> 
+								<td>{{patient.LastName}}</td>
+								<td>
+					          		<button type="button" class="btn btn-default btn-xs pull-right" ng-click="deletePatient(patient.ID);">
+  										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
+								</td>	
+						    </tr>
+					    </table>
+				    </div>
+			    </div>
+		    </div>
+
+		    <div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h2>Injuries</h2></div>
+					<div class="panel-body">
+						<table class="table">
+							<thead>
+								<th>AO Code</th>
+								<th>Injury date</th>
+								<th>Injury hour</th>
+								<th>Patient</th>
+								<th></th>
+							</thead>
+						    <tr ng-repeat="injury in injuries">
+					    		<td>{{injury.AOCode}}</td> 
+					    		<td>{{injury.InjuryDate.toLocaleDateString()}}</td> 
+					    		<td>{{injury.InjuryHour}}</td>
+					    		<td>{{formatPatient(findPatient(injury.PatientID))}}</td>
+					    		<td>
+					          		<button type="button" class="btn btn-default btn-xs pull-right" ng-click="deleteInjury(injury.ID);">
+  										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
+								</td>
+							</tr>	
+					    </table>
+				    </div>
+			    </div>
+		    </div>
+		</div>
+	  </div>
+	</body>
+    <script type="text/javascript">
+        $('.datepicker').datepicker()
+    </script>
+</html>
+

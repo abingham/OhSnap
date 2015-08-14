@@ -1,0 +1,15 @@
+﻿CREATE TABLE IF NOT EXISTS patients(
+	id INT AUTO_INCREMENT,
+	firstname TEXT,
+	lastname TEXT,
+	age INT,
+	PRIMARY KEY (id));
+
+CREATE TABLE IF NOT EXISTS injuries(
+	id INT AUTO_INCREMENT, 
+    aocode TEXT, 
+    injurydate DATE, 
+    injuryhour INT, 
+    patientid INT, 
+    FOREIGN KEY (patientid) REFERENCES patients(id) ON DELETE CASCADE, 
+    PRIMARY KEY (id));
