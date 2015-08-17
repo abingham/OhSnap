@@ -36,6 +36,13 @@
         </dd>
 
     </dl>
+    <strong>Injuries</strong>
+    <ul>
+        @foreach(var injury in Model.Injuries)
+        {
+            <li>@injury.InjuryDate - @injury.InjuryHour</li>
+        }
+    </ul>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
