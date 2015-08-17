@@ -13,8 +13,8 @@ namespace OhSnap.Models
         public string LastName { get; set; }
         public int Age { get; set; }
 
-        // [JsonIgnore]
-        // public virtual ICollection<Injury> Injuries { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Injury> Injuries { get; set; }
     }
 }
 

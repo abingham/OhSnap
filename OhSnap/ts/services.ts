@@ -12,7 +12,7 @@ module OhSnap.Service {
         'Patients',
         ['$resource',
          function($resource: angular.resource.IResourceService){
-             return $resource('/api/Patients/:id');
+             return $resource('/api/PatientsAPI/:id');
          }]);
 
     var parseInjury = (injury) => {
@@ -25,7 +25,7 @@ module OhSnap.Service {
         ['$resource',
          function($resource: angular.resource.IResourceService){
              return $resource(
-                 '/api/Injuries/:id',
+                 '/api/InjuriesAPI/:id',
                  {},
                  { // This takes care of parsing date string representations into actual Date instances.
                      query: {

@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 using Newtonsoft.Json;
 
-namespace OhSnap.Controllers
+namespace OhSnap.Controllers.API
 {
     /* A JsonResult subclass which uses JSON.NET (newtonsoft) for en/decoding.
      * 

@@ -1,35 +1,32 @@
 ﻿using System.Net;
 using System.Web.Mvc;
 
-using Newtonsoft.Json;
-
 using OhSnap.DAL;
 using OhSnap.Models;
 
-namespace OhSnap.Controllers
+namespace OhSnap.Controllers.API
 {
-    public class InjuriesController : JsonNetController
+    public class PatientsAPIController : JsonNetController
     {
-        // TODO: Centralize this? It's currently replicated for e.g. PatientsController
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 
-        // GET: /api/Injuries/
+        // GET: /api/Patients/
         [HttpGet]
         public ActionResult Index()
         {
-            return Json (db.Injuries, JsonRequestBehavior.AllowGet);
+            return Json (db.Patients, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: /api/Injuries/
+        // POST: /api/Patients/
         [HttpPost]
-        public ActionResult Index(Injury injury)
+        public ActionResult Index(Patient patient)
         {
             if (ModelState.IsValid)
             {
-                db.Injuries.Add(injury);
+                db.Patients.Add(patient);
                 db.SaveChanges();
 
-                return Json (injury);
+                return Json (patient);
             }
 
             // TODO: Is this the right thing to return?
@@ -37,13 +34,13 @@ namespace OhSnap.Controllers
                 HttpStatusCode.InternalServerError);
         }
 
-        // DELETE: /api/Injuries
+        // DELETE: /api/Patients
         [HttpDelete]
         public HttpStatusCode Index(int id)
         {
-            var injury = new Injury () { ID = id };
-            db.Injuries.Attach (injury);
-            db.Injuries.Remove (injury);
+            var patient = new Patient () { ID = id };
+            db.Patients.Attach (patient);
+            db.Patients.Remove (patient);
             try {
                 db.SaveChanges ();
             } catch (System.Data.DataException) {
@@ -53,20 +50,20 @@ namespace OhSnap.Controllers
             return HttpStatusCode.OK;
         }
 
-        // GET: /api/Injuries/Details
+        // GET: /api/Patients/Details
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var injury = db.Injuries.Find (id);
-            if (injury == null)
+            var patient = db.Patients.Find (id);
+            if (patient == null)
             {
                 return HttpNotFound();
             }
 
-            return Json(injury, JsonRequestBehavior.AllowGet);
+            return Json(patient, JsonRequestBehavior.AllowGet);
         }
     }
 }

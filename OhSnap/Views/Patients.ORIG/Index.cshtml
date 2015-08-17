@@ -1,0 +1,12 @@
+﻿@model IEnumerable<OhSnap.Models.Patient>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol>
+    @foreach (var p in Model)
+    {
+        <li>@p.FirstName</li>
+    }
+</ol>

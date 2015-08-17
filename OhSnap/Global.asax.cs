@@ -18,20 +18,23 @@ namespace OhSnap
 
             routes.MapRoute (
                 "API",
-                "api/{controller}/{action}/{id}"
+                "api/{controller}/{action}/{id}",
+                namespaces: new string[] { "OhSnap.Controllers.API" }
             );
 
             routes.MapRoute (
                 "APIIndex",
                 "api/{controller}/{id}",
-                new { action = "Index", id = "" }
+                new { action = "Index", id = "" },
+                namespaces: new string[] { "OhSnap.Controllers.API" }
             );
 
             // TODO: How do we limit this to non-api stuff without having to explicitly list each controller that should match the default pattern?
             routes.MapRoute (
                 "Default",
                 "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = "" }
+                new { action = "Index", controller = "Home", id = ""},
+                namespaces: new string[] { "OhSnap.Controllers" }
             );
 
         }

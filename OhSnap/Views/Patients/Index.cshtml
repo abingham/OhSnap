@@ -1,23 +1,31 @@
 ﻿@model IEnumerable<OhSnap.Models.Patient>
 
 @{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-<div class="col-md-4">
-<div class="panel panel-default">
-<div class="panel-heading"><h3>Patients</h3></div>
-<div class="panel-body">
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
-<thead>
-<th>ID</th><th>First name</th><th>Last name</th><th>Age</th>
-</thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th></th>
+    </tr>
+
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
@@ -28,15 +36,11 @@
             @Html.DisplayFor(modelItem => item.Age)
         </td>
         <td>
-        <a href="/Patients/Details/@item.ID">Details</a>
-        <!--- should be: (at)Html.ActionLink("Details", "Details", "Patients", new { id = "(at)" }, null) 
-        	  But there's a bug in mono that results in complaints about missible extensions...
-        -->
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }
+
 </table>
-</div>
-</div>
-</div>
-</div>

@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Web.Mvc;
 
-namespace OhSnap.Controllers
+namespace OhSnap.Controllers.API
 {
     /* A controller derivative that uses JSON.NET for JSON en/decoding.
      * 
