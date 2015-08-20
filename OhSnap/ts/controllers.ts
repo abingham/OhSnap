@@ -42,8 +42,42 @@ module OhSnap.Controller {
         deleteInjury: (id: string) => void;
     };
 
+    export interface OhSnapSelection {
+        patient: Patient;
+    };
+
+    export interface OhSnapScope extends angular.IScope {
+        patients: Patient[]; // all available patients
+        selection: OhSnapSelection;
+
+        formatPatient: (patient: Patient) => string;
+    };
+
     // The main controller for FracReg.
     //
+
+    ohSnapControllers.controller(
+        'OhSnapCtrl',
+        ['$scope',
+         'Patients',
+         ($scope: OhSnapScope,
+          Patients) => {
+             $scope.patients = [];
+             $scope.selection = {
+                 patient: null
+             };
+
+             // load the patients from the server
+             var patients = Patients.query({}, () => {
+                 $scope.patients = patients;
+             });
+
+             $scope.formatPatient = (patient: Patient) => {
+                 return patient.LastName + ", " + patient.FirstName + " (" + patient.Age + ")";
+             };
+         }
+        ]);
+
     // Coordinates the primary data in the application, and maintains
     // data retrieved from various providers.
     ohSnapControllers.controller(

@@ -13,8 +13,26 @@ var OhSnap;
         ;
         ;
         ;
+        ;
+        ;
         // The main controller for FracReg.
         //
+        ohSnapControllers.controller('OhSnapCtrl', ['$scope',
+            'Patients',
+            function ($scope, Patients) {
+                $scope.patients = [];
+                $scope.selection = {
+                    patient: null
+                };
+                // load the patients from the server
+                var patients = Patients.query({}, function () {
+                    $scope.patients = patients;
+                });
+                $scope.formatPatient = function (patient) {
+                    return patient.LastName + ", " + patient.FirstName + " (" + patient.Age + ")";
+                };
+            }
+        ]);
         // Coordinates the primary data in the application, and maintains
         // data retrieved from various providers.
         ohSnapControllers.controller('AddProcedureCtrl', ['$scope',

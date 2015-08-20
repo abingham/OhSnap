@@ -8,7 +8,7 @@ var OhSnap;
         var ohSnapServices = angular.module('ohSnapServices', ['ngResource']);
         ohSnapServices.factory('Patients', ['$resource',
             function ($resource) {
-                return $resource('/api/Patients/:id');
+                return $resource('/api/PatientsAPI/:id');
             }]);
         var parseInjury = function (injury) {
             injury.InjuryDate = new Date(injury.InjuryDate);
@@ -16,7 +16,7 @@ var OhSnap;
         };
         ohSnapServices.factory('Injuries', ['$resource',
             function ($resource) {
-                return $resource('/api/Injuries/:id', {}, {
+                return $resource('/api/InjuriesAPI/:id', {}, {
                     query: {
                         method: 'GET',
                         isArray: true,
