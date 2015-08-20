@@ -1,33 +1,14 @@
-﻿/// <reference path="../Scripts/typings/angularjs/angular.d.ts"/>
-/// <reference path="../Scripts/typings/angularjs/angular-resource.d.ts"/>
-/// <reference path="../Scripts/typings/underscore/underscore.d.ts"/>
+﻿/// <reference path="../../Scripts/typings/angularjs/angular.d.ts"/>
+/// <reference path="../../Scripts/typings/angularjs/angular-resource.d.ts"/>
+/// <reference path="../../Scripts/typings/underscore/underscore.d.ts"/>
+/// <reference path="datatypes.ts"/>
+/// <reference path="module.ts"/>
 
 'use strict';
 
 /* Controllers */
 
 module OhSnap.Controller {
-
-    var ohSnapControllers: angular.IModule = angular.module(
-            'ohSnapControllers',
-            [
-                'ohSnapServices'
-            ]);
-
-    export interface Patient {
-                ID: string;
-                FirstName: string;
-                LastName: string;
-                Age: number;
-    };
-
-    export interface Injury {
-        ID: string;
-        PatientID: string;
-        AOCode: string;
-        InjuryDate: Date;
-        InjuryHour: number;
-    };
 
     export interface AddProcedureScope extends angular.IScope {
         patients: Patient[];
@@ -41,42 +22,6 @@ module OhSnap.Controller {
         addInjury: (PatientID: string, AOCode: string, InjuryDate: Date, InjuryHour: number) => void;
         deleteInjury: (id: string) => void;
     };
-
-    export interface OhSnapSelection {
-        patient: Patient;
-    };
-
-    export interface OhSnapScope extends angular.IScope {
-        patients: Patient[]; // all available patients
-        selection: OhSnapSelection;
-
-        formatPatient: (patient: Patient) => string;
-    };
-
-    // The main controller for FracReg.
-    //
-
-    ohSnapControllers.controller(
-        'OhSnapCtrl',
-        ['$scope',
-         'Patients',
-         ($scope: OhSnapScope,
-          Patients) => {
-             $scope.patients = [];
-             $scope.selection = {
-                 patient: null
-             };
-
-             // load the patients from the server
-             var patients = Patients.query({}, () => {
-                 $scope.patients = patients;
-             });
-
-             $scope.formatPatient = (patient: Patient) => {
-                 return patient.LastName + ", " + patient.FirstName + " (" + patient.Age + ")";
-             };
-         }
-        ]);
 
     // Coordinates the primary data in the application, and maintains
     // data retrieved from various providers.

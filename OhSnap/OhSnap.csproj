@@ -1078,7 +1078,10 @@
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="ts\app.ts" />
-    <TypeScriptCompile Include="ts\controllers.ts" />
+    <TypeScriptCompile Include="ts\controllers\add_procedure_ctrl.ts" />
+    <TypeScriptCompile Include="ts\controllers\datatypes.ts" />
+    <TypeScriptCompile Include="ts\controllers\module.ts" />
+    <TypeScriptCompile Include="ts\controllers\oh_snap_ctrl.ts" />
     <TypeScriptCompile Include="ts\services.ts" />
   </ItemGroup>
   <ItemGroup>
