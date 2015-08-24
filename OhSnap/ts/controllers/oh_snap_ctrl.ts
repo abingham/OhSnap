@@ -12,13 +12,16 @@ module OhSnap.Controller {
 
     export interface OhSnapSelection {
         patient: Patient;
+        injury: Injury;
     };
 
     export interface OhSnapScope extends angular.IScope {
         patients: Patient[]; // all available patients
+        injuries: Injury[];
         selection: OhSnapSelection;
 
         formatPatient: (patient: Patient) => string;
+        formatInjury: (Injury: Injury) => string;
     };
 
     // The main controller for FracReg.
@@ -27,12 +30,16 @@ module OhSnap.Controller {
     ohSnapControllers.controller(
         'OhSnapCtrl',
         ['$scope',
-            'Patients',
-            ($scope: OhSnapScope,
-                Patients) => {
+         'Patients',
+         'Injuries',
+         ($scope: OhSnapScope,
+          Patients,
+          Injuries) => {
                 $scope.patients = [];
+                $scope.injuries = [];
                 $scope.selection = {
-                    patient: null
+                    patient: null,
+                    injury: null
                 };
 
                 // load the patients from the server
@@ -40,8 +47,16 @@ module OhSnap.Controller {
                     $scope.patients = patients;
                 });
 
+                var injuries = Injuries.query({}, () => {
+                    $scope.injuries = injuries;
+                });
+
                 $scope.formatPatient = (patient: Patient) => {
                     return patient.LastName + ", " + patient.FirstName + " (" + patient.Age + ")";
+                };
+
+                $scope.formatInjury = (injury: Injury) => {
+                    return injury.InjuryDate + " @ " + injury.InjuryHour
                 };
             }
         ]);

@@ -27,6 +27,13 @@ namespace OhSnap.DAL
             };
             context.Injuries.Add(injury);
 
+            var fracture = new Fracture()
+            {
+                InjuryID = injury.ID,
+                AOCode = "33A2"
+            };
+            context.Fractures.Add(fracture);
+
             patient = new Patient()
             {
                 FirstName = "Joe",
@@ -43,6 +50,13 @@ namespace OhSnap.DAL
                 PatientID = patient.ID
             };
             context.Injuries.Add(injury);
+
+            fracture = new Fracture()
+            {
+                InjuryID = injury.ID,
+                AOCode = "22B1"
+            };
+            context.Fractures.Add(fracture);
         }
     }
 }

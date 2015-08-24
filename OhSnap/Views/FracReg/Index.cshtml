@@ -21,10 +21,16 @@
 <body>
     <div class="container-fluid" ng-controller="OhSnapCtrl">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <strong>Selected patient:</strong>
                 <div ng-if="selection.patient != null">
                     {{formatPatient(selection.patient)}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <strong>Selected injury:</strong>
+                <div ng-if="selection.injury != null">
+                    {{formatInjury(selection.injury)}}
                 </div>
             </div>
         </div>
@@ -42,7 +48,9 @@
             <div role="tabpanel" class="tab-pane active" id="patient">
                 @Html.Partial("PatientTab")
             </div>
-            <div role="tabpanel" class="tab-pane" id="injury">...</div>
+            <div role="tabpanel" class="tab-pane" id="injury">
+                @Html.Partial("InjuryTab")
+            </div>
             <div role="tabpanel" class="tab-pane" id="fracture">...</div>
             <div role="tabpanel" class="tab-pane" id="operation">...</div>
         </div> 

@@ -14,8 +14,13 @@ module OhSnap.Controller {
     export interface Injury {
         ID: string;
         PatientID: string;
-        AOCode: string;
         InjuryDate: Date;
         InjuryHour: number;
+    };
+
+    export interface Fracture {
+        ID: string;
+        InjuryID: string;
+        AOCode: string;
     };
 }

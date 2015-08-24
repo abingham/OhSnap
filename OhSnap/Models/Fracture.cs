@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web.Mvc;
 
 namespace OhSnap.Models
 {
+    [Bind(Exclude = "ID")]
     public class Fracture
     {
-        // AO code
-        // open/closed
-        // dislocation
-        // special info: pathology, atypical, prosthesis, osteogenesis imperfecta
-        // injury-id
+        public int ID { get; set; }
+        public int InjuryID { get; set; }
+        
+        // TODO: Class for AOCode? Enforce syntax?
+        public string AOCode { get; set; }
+
+        public virtual Injury Injury { get; set; }
     }
 }

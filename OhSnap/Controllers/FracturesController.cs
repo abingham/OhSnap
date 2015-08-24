@@ -9,30 +9,30 @@ using OhSnap.Models;
 
 namespace OhSnap.Controllers
 {
-    public class PatientsController : Controller
+    public class FracturesController : Controller
     {
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 
-        // GET: Patients
+        // GET: Fractures
         public ActionResult Index()
         {
-            return View(db.Patients.ToList());
-        }
-   
-        // GET: Patients/Details/5
-        public ActionResult Details(int id)
-        {
-            var patient = db.Patients.Find(id);
-            return View(patient);
+            return View(db.Fractures);
         }
 
-        // GET: Patients/Create
+        // GET: Fractures/Details/5
+        public ActionResult Details(int id)
+        {
+            var fracture = db.Fractures.Find(id);
+            return View(fracture);
+        }
+
+        // GET: Fractures/Create
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: Patients/Create
+        
+        // POST: Fractures/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -40,41 +40,35 @@ namespace OhSnap.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var patient = new Patient()
+                    var fracture = new Fracture()
                     {
-                        FirstName = collection["FirstName"],
-                        LastName = collection["LastName"],
-                        Age = int.Parse(collection["Age"])
+                        AOCode = collection["AOCode"],
+                        InjuryID = int.Parse(collection["InjuryID"])
                     };
-                    db.Patients.Add(patient);
+                    db.Fractures.Add(fracture);
                     db.SaveChanges();
                     return RedirectToAction("Index");
-                } 
+                }
             }
             catch
-            {}
+            { }
 
             return View();
         }
 
-        // GET: Patients/Edit/5
+        // GET: Fractures/Edit/5
         public ActionResult Edit(int id)
         {
-            var patient = db.Patients.Find(id);
-            return View(patient);
+            return View();
         }
 
-        // POST: Patients/Edit/5
+        // POST: Fractures/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                var patient = db.Patients.Find(id);
-                patient.FirstName = collection["FirstName"];
-                patient.LastName = collection["LastName"];
-                patient.Age = int.Parse(collection["Age"]);
-                db.SaveChanges();
+                // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }
@@ -84,22 +78,19 @@ namespace OhSnap.Controllers
             }
         }
 
-        // GET: Patients/Delete/5
+        // GET: Fractures/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Patients/Delete/5
+        // POST: Fractures/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                var patient = new Patient { ID = id };
-                db.Patients.Attach(patient);
-                db.Patients.Remove(patient);
-                db.SaveChanges();
+                // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
             }
@@ -107,13 +98,6 @@ namespace OhSnap.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: Patients/ManageForms/5
-        [HttpGet]
-        public ActionResult ManageForms(int id)
-        {
-            return View(db.Patients.Find(id));
         }
     }
 }

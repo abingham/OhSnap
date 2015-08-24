@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Linq;
 using System.Web.Mvc;
 
 using Newtonsoft.Json;
@@ -67,6 +68,13 @@ namespace OhSnap.Controllers.API
             }
 
             return Json(injury, JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: /api/Injuries/ByUser/:patientid
+        public ActionResult ByUser(int id)
+        {
+            var injuries = db.Injuries.Where(i => i.PatientID == id);
+            return Json(injuries, JsonRequestBehavior.AllowGet);
         }
     }
 }

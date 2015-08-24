@@ -37,6 +37,16 @@ module OhSnap.Service {
                                  parseInjury);
                          }
                      },
+                     byUser: {
+                         method: 'GET',
+                         isArray: true,
+                         url: '/api/InjuriesAPI/ByUser/:id',
+                         transformResponse: (data, headersGetter) => {
+                             return _.map<any, any>(
+                                 JSON.parse(data),
+                                 parseInjury);
+                         }
+                     },
                      get: {
                          method: 'GET',
                          transformResponse: (data, headersGetter) => {

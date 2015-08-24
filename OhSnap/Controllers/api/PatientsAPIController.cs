@@ -10,11 +10,18 @@ namespace OhSnap.Controllers.API
     {
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 
-        // GET: /api/Patients/
+        // GET: /api/Patients/:id
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return Json (db.Patients, JsonRequestBehavior.AllowGet);
+            if (id == null)
+            {
+                return Json(db.Patients, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(db.Patients.Find(id), JsonRequestBehavior.AllowGet);
+            }
         }
 
         // POST: /api/Patients/
@@ -48,22 +55,6 @@ namespace OhSnap.Controllers.API
             }
 
             return HttpStatusCode.OK;
-        }
-
-        // GET: /api/Patients/Details
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var patient = db.Patients.Find (id);
-            if (patient == null)
-            {
-                return HttpNotFound();
-            }
-
-            return Json(patient, JsonRequestBehavior.AllowGet);
         }
     }
 }
