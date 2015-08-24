@@ -16,12 +16,13 @@ module OhSnap.Controller {
 
     interface Selection {
         injury: Injury;
+        fracture: Fracture;
     };
 
     interface ManageFormsScope extends angular.IScope {
         patient: Patient; // The current patient.
         injuries: Injury[];
-        fracture: Fracture[];
+        fractures: Fracture[];
 
         injuryGridOptions: uiGrid.IGridOptions;
         fractureGridOptions: uiGrid.IGridOptions;
@@ -33,10 +34,12 @@ module OhSnap.Controller {
          'patientID',
          'Patients',
          'Injuries',
+         'Fractures',
          ($scope: ManageFormsScope,
           patientID,
           Patients,
-          Injuries) => {
+          Injuries,
+          Fractures) => {
              // load the patient from the server
              var patient = Patients.get({id: patientID}, () => {
                  $scope.patient = patient;
@@ -51,7 +54,19 @@ module OhSnap.Controller {
                  columnDefs: [
                      { name: 'Date', field: 'InjuryDate' },
                      { name: 'Hour', field: 'InjuryHour' }                     
-                 ]  
+                 ],
+                 enableFullRowSelection: true
+             };
+
+             $scope.injuryGridOptions.onRegisterApi = function (gridApi) {                                
+                 gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                     var injuryID = row.entity.ID;
+                     var fractures = Fractures.byInjury({ id: injuryID }, () => {
+                         $scope.fractures = fractures;
+                         $scope.fractureGridOptions.data = fractures;
+                     });
+                     
+                 });                 
              };
 
              $scope.fractureGridOptions = {

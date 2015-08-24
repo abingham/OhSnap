@@ -9,7 +9,8 @@ module OhSnap.App {
         [
             'manageFormsControllers',
             'ngRoute',
-            'ui.grid'
+            'ui.grid',
+            'ui.grid.selection'
         ]);
 
     ohSnapApp.config(['$routeProvider',

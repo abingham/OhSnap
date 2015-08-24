@@ -1054,6 +1054,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\api\FracturesAPIController.cs" />
     <Compile Include="Controllers\api\InjuriesAPIController.cs" />
     <Compile Include="Controllers\api\JsonNetController.cs" />
     <Compile Include="Controllers\api\JsonNetResult.cs" />

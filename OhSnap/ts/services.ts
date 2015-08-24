@@ -54,5 +54,26 @@ module OhSnap.Service {
                          }
                      }
                  });
-         }]);
+            }]);
+
+    ohSnapServices.factory(
+        'Fractures',
+        ['$resource',
+            function ($resource: angular.resource.IResourceService) {
+                return $resource(
+                    '/api/FracturesAPI/:id',
+                    {},
+                    {                         
+                        byInjury: {
+                            method: 'GET',
+                            isArray: true,
+                            url: '/api/FracturesAPI/ByUser/:id',
+                            transformResponse: (data, headersGetter) => {
+                                return _.map<any, any>(
+                                    JSON.parse(data),
+                                    parseInjury);
+                            }
+                        }                        
+                    });
+            }]);
 }
