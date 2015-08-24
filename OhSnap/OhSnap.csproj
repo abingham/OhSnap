@@ -1020,7 +1020,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Procedures\Add.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Scripts\version.json" />
@@ -1031,9 +1030,6 @@
     <Content Include="Views\Patients\Delete.cshtml" />
     <Content Include="Views\Injuries\Create.cshtml" />
     <Content Include="Views\Injuries\Index.cshtml" />
-    <Content Include="Views\FracReg\Index.cshtml" />
-    <Content Include="Views\FracReg\PatientTab.cshtml" />
-    <Content Include="Views\FracReg\InjuryTab.cshtml" />
     <Content Include="Views\Patients\ManageForms.cshtml" />
     <Content Include="Views\Fractures\Index.cshtml" />
     <Content Include="Views\Fractures\Create.cshtml" />
@@ -1059,7 +1055,6 @@
     <Compile Include="Controllers\api\JsonNetController.cs" />
     <Compile Include="Controllers\api\JsonNetResult.cs" />
     <Compile Include="Controllers\api\PatientsAPIController.cs" />
-    <Compile Include="Controllers\FracRegController.cs" />
     <Compile Include="Controllers\FracturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InjuriesController.cs" />
@@ -1096,15 +1091,13 @@
     <TypeScriptCompile Include="Scripts\typings\ui-grid\ui-grid.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="ts\app.ts" />
-    <TypeScriptCompile Include="ts\controllers\add_procedure_ctrl.ts" />
     <TypeScriptCompile Include="ts\controllers\datatypes.ts" />
     <TypeScriptCompile Include="ts\controllers\manage_forms.ts" />
-    <TypeScriptCompile Include="ts\controllers\module.ts" />
-    <TypeScriptCompile Include="ts\controllers\oh_snap_ctrl.ts" />
     <TypeScriptCompile Include="ts\services.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Procedures\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

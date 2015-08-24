@@ -5,9 +5,9 @@
 module OhSnap.App {
 
     var ohSnapApp: angular.IModule = angular.module(
-        'OhSnapApp',
+        'ManageFormsApp',
         [
-            'manageFormsControllers',
+            'ManageFormsControllers',
             'ngRoute',
             'ui.grid',
             'ui.grid.selection'

@@ -1,7 +1,7 @@
 ﻿@model OhSnap.Models.Patient
 
 <!DOCTYPE html>
-<html ng-app="OhSnapApp">
+<html ng-app="ManageFormsApp">
 <head>
     <title>Manage Forms</title>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
@@ -29,6 +29,6 @@
     </div>
 </body>
 <script>
-    angular.module("manageFormsControllers").value("patientID", @Html.Raw(Model.ID));
+    angular.module("ManageFormsControllers").value("patientID", @Html.Raw(Model.ID));
 </script>
 </html>

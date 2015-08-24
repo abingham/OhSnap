@@ -9,9 +9,9 @@
 module OhSnap.Controller {
 
     var manageFormsControllers: angular.IModule = angular.module(
-        'manageFormsControllers',
+        'ManageFormsControllers',
         [
-            'ohSnapServices'
+            'OhSnapServices'
         ]);
 
     interface Selection {

@@ -5,7 +5,7 @@
 module OhSnap.Service {
 
     var ohSnapServices: angular.IModule = angular.module(
-        'ohSnapServices',
+        'OhSnapServices',
         ['ngResource']);
 
     ohSnapServices.factory(
