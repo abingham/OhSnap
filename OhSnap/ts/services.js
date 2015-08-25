@@ -5,7 +5,7 @@ var OhSnap;
 (function (OhSnap) {
     var Service;
     (function (Service) {
-        var ohSnapServices = angular.module('ohSnapServices', ['ngResource']);
+        var ohSnapServices = angular.module('OhSnapServices', ['ngResource']);
         ohSnapServices.factory('Patients', ['$resource',
             function ($resource) {
                 return $resource('/api/PatientsAPI/:id');
@@ -24,10 +24,31 @@ var OhSnap;
                             return _.map(JSON.parse(data), parseInjury);
                         }
                     },
+                    byUser: {
+                        method: 'GET',
+                        isArray: true,
+                        url: '/api/InjuriesAPI/ByUser/:id',
+                        transformResponse: function (data, headersGetter) {
+                            return _.map(JSON.parse(data), parseInjury);
+                        }
+                    },
                     get: {
                         method: 'GET',
                         transformResponse: function (data, headersGetter) {
                             return parseInjury(JSON.parse(data));
+                        }
+                    }
+                });
+            }]);
+        ohSnapServices.factory('Fractures', ['$resource',
+            function ($resource) {
+                return $resource('/api/FracturesAPI/:id', {}, {
+                    byInjury: {
+                        method: 'GET',
+                        isArray: true,
+                        url: '/api/FracturesAPI/ByUser/:id',
+                        transformResponse: function (data, headersGetter) {
+                            return _.map(JSON.parse(data), parseInjury);
                         }
                     }
                 });
