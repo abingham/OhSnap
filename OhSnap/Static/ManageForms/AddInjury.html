@@ -1,10 +1,29 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-	<meta charset="utf-8" />
-</head>
-<body>
-    AddInjury partial view...
-</body>
-</html>
+﻿<!-- ManageForms/add_injury partial view -->
+
+<div class="row" ng-controller="AddInjuryCtrl">
+    <div class="col-md-6">
+        <h3>Add Injury</h3>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="injury-date-input" class="col-sm-2 control-label">Date</label>
+                <div class="col-sm-10">
+                    <input data-provide="datepicker" id="injury-date-input" data-date-format="yyyy-mm-dd" ng-model="date">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="injury-hour-input" class="col-sm-2 control-label">Hour</label>
+                <div class="col-sm-10">
+                    <input type="number" min="0" max="23" id="injury-hour-input" ng-model="hour">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <button class="btn btn-primary" ng-disabled="submissionDisabled()" ng-click="submitInjury()">Add</button>
+                    <a href="#/" class="btn btn-default" role="button">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

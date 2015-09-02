@@ -20,12 +20,20 @@ module OhSnap.Controller {
     };
 
     interface ManageFormsScope extends angular.IScope {
-        patient: Patient; // The current patient.
+        patientID: string; // The current patient-id.
         injuries: Injury[];
         fractures: Fracture[];
 
         injuryGridOptions: uiGrid.IGridOptions;
         fractureGridOptions: uiGrid.IGridOptions;
+    };
+
+    interface InjuryResource extends angular.resource.IResourceClass<Injury> {
+        byUser: (params: { id: string }, success: Function) => Injury[];
+    };
+
+    interface FractureResource extends angular.resource.IResourceClass<Fracture> {
+        byInjury: (params: { id: string }, success: Function) => Fracture[];
     };
 
     manageFormsControllers.controller(
@@ -36,27 +44,27 @@ module OhSnap.Controller {
          'Injuries',
          'Fractures',
          ($scope: ManageFormsScope,
-          patientID,
-          Patients,
-          Injuries,
-          Fractures) => {
-             // load the patient from the server
-             var patient = Patients.get({id: patientID}, () => {
-                 $scope.patient = patient;
-
-                 var injuries = Injuries.byUser({ id: patient.ID }, () => {
-                     $scope.injuries = injuries;
-                     $scope.injuryGridOptions.data = injuries;
-                 });
-             });
-
-             $scope.injuryGridOptions = {                 
+          patientID: string,
+          Patients: angular.resource.IResourceClass<Patient>,
+          Injuries: InjuryResource,
+          Fractures: FractureResource) => {
+             $scope.injuryGridOptions = {
                  columnDefs: [
                      { name: 'Date', field: 'InjuryDate' },
-                     { name: 'Hour', field: 'InjuryHour' }                     
+                     { name: 'Hour', field: 'InjuryHour' }
                  ],
                  enableFullRowSelection: true
              };
+
+             $scope.$watch('injuries', (newValue, oldValue) => {
+                 $scope.injuryGridOptions.data = $scope.injuries;
+             });
+
+             $scope.patientID = patientID;
+
+             var injuries = Injuries.byUser({ id: $scope.patientID }, () => {
+                 $scope.injuries = injuries;
+             });                          
 
              $scope.injuryGridOptions.onRegisterApi = function (gridApi) {                                
                  gridApi.selection.on.rowSelectionChanged($scope, function (row) {
@@ -75,5 +83,47 @@ module OhSnap.Controller {
                  ]
              };
          }
+        ]);
+
+    interface AddInjuryScope extends ManageFormsScope {
+        date: any; // TODO: Correct type?
+        hour: number;
+
+        submissionDisabled: () => boolean;
+        submitInjury: () => void;
+    };
+
+    manageFormsControllers.controller(
+        'AddInjuryCtrl',
+        ['$scope',
+         '$location',
+         'Injuries',
+         ($scope: AddInjuryScope,
+          $location: angular.ILocationService,
+          Injuries: InjuryResource) => {
+                $scope.date = null;
+                $scope.hour = null;
+
+                $scope.submissionDisabled = () => {
+                    return $scope.date == null || $scope.hour == null;
+                };
+
+                $scope.submitInjury = () => {
+                    console.log($scope.date);
+                    console.log($scope.hour);
+
+                    var newInjury = new Injuries({
+                        InjuryDate: $scope.date,
+                        InjuryHour: $scope.hour,
+                        PatientID: $scope.patientID
+                    });
+
+                    // TODO: It's at least in principle possible that injuries doesn't yet exist. Do we need to deal with that?
+                    $scope.injuries.push(newInjury);
+
+                    $location.path('#/');
+                };
+
+            }
         ]);
     }

@@ -15,8 +15,14 @@ module OhSnap.Service {
              return $resource('/api/PatientsAPI/:id');
          }]);
 
-    var parseInjury = (injury) => {
-        injury.InjuryDate = new Date(injury.InjuryDate);
+    var injuryFromJSON = (injury) => {
+        // TODO: This is a bit dicey. We're just parsing out the date portion (YYYY-MM-DD) of a date-time string.
+        injury.InjuryDate = injury.InjuryDate.substring(0, 10);
+        return injury;
+    };
+
+    var injuryToJSON = (injury) => {
+        injury.InjuryDate = injury.InjuryDate + "T00:00:00";
         return injury;
     };
 
@@ -34,7 +40,13 @@ module OhSnap.Service {
                          transformResponse: (data, headersGetter) => {
                              return _.map<any, any>(
                                  JSON.parse(data),
-                                 parseInjury);
+                                 injuryFromJSON);
+                         }
+                     },
+                     save: {
+                         method: 'POST',
+                         transformRequest: (data, headersGetter) => {
+                             return JSON.stringify(injuryToJSON(data));
                          }
                      },
                      byUser: {
@@ -44,13 +56,13 @@ module OhSnap.Service {
                          transformResponse: (data, headersGetter) => {
                              return _.map<any, any>(
                                  JSON.parse(data),
-                                 parseInjury);
+                                 injuryFromJSON);
                          }
                      },
                      get: {
                          method: 'GET',
                          transformResponse: (data, headersGetter) => {
-                             return parseInjury(JSON.parse(data));
+                             return injuryFromJSON(JSON.parse(data));
                          }
                      }
                  });
@@ -67,12 +79,7 @@ module OhSnap.Service {
                         byInjury: {
                             method: 'GET',
                             isArray: true,
-                            url: '/api/FracturesAPI/ByUser/:id',
-                            transformResponse: (data, headersGetter) => {
-                                return _.map<any, any>(
-                                    JSON.parse(data),
-                                    parseInjury);
-                            }
+                            url: '/api/FracturesAPI/ByUser/:id'
                         }                        
                     });
             }]);

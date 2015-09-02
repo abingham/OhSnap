@@ -1033,6 +1033,7 @@
     <Content Include="Views\Patients\ManageForms.cshtml" />
     <Content Include="Views\Fractures\Index.cshtml" />
     <Content Include="Views\Fractures\Create.cshtml" />
+    <Content Include="tsconfig.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -27,8 +27,10 @@
     Age: <strong>{{patient.Age}}</strong>
     <div ng-view>
     </div>
+
+    <script>
+        angular.module("ManageFormsControllers").value("patientID", @Html.Raw(Model.ID));
+        $('.datepicker').datepicker();
+    </script>
 </body>
-<script>
-    angular.module("ManageFormsControllers").value("patientID", @Html.Raw(Model.ID));
-</script>
 </html>

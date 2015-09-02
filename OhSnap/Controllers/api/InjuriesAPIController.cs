@@ -25,7 +25,7 @@ namespace OhSnap.Controllers.API
         [HttpPost]
         public ActionResult Index(Injury injury)
         {
-            if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
                 db.Injuries.Add(injury);
                 db.SaveChanges();
