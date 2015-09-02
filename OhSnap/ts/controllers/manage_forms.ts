@@ -20,7 +20,7 @@ module OhSnap.Controller {
     };
 
     interface ManageFormsScope extends angular.IScope {
-        patientID: string; // The current patient-id.
+        patient: Patient; // the current patient
         injuries: Injury[];
         fractures: Fracture[];
 
@@ -56,9 +56,11 @@ module OhSnap.Controller {
                  enableFullRowSelection: true
              };
              
-             $scope.patientID = patientID;
+             var patient = Patients.get({ id: patientID }, () => {
+                 $scope.patient = patient;
+             });
 
-             var injuries = Injuries.byUser({ id: $scope.patientID }, () => {
+             var injuries = Injuries.byUser({ id: patientID }, () => {
                  $scope.injuries = injuries;
                  $scope.injuryGridOptions.data = $scope.injuries;
              });                          
@@ -112,7 +114,7 @@ module OhSnap.Controller {
                     var newInjury = new Injuries({
                         InjuryDate: $scope.date,
                         InjuryHour: $scope.hour,
-                        PatientID: $scope.patientID
+                        PatientID: $scope.patient.ID
                     });
 
                     // TODO: It's at least in principle possible that injuries doesn't yet exist. Do we need to deal with that?
