@@ -14,18 +14,7 @@ module OhSnap.Service {
          function($resource: angular.resource.IResourceService){
              return $resource('/api/PatientsAPI/:id');
          }]);
-
-    var injuryFromJSON = (injury) => {
-        // TODO: This is a bit dicey. We're just parsing out the date portion (YYYY-MM-DD) of a date-time string.
-        injury.InjuryDate = injury.InjuryDate.substring(0, 10);
-        return injury;
-    };
-
-    var injuryToJSON = (injury) => {
-        injury.InjuryDate = injury.InjuryDate + "T00:00:00";
-        return injury;
-    };
-
+        
     ohSnapServices.factory(
         'Injuries',
         ['$resource',
@@ -33,20 +22,18 @@ module OhSnap.Service {
              return $resource(
                  '/api/InjuriesAPI/:id',
                  {},
-                 { // This takes care of parsing date string representations into actual Date instances.
+                 { 
                      query: {
                          method: 'GET',
                          isArray: true,
-                         transformResponse: (data, headersGetter) => {
-                             return _.map<any, any>(
-                                 JSON.parse(data),
-                                 injuryFromJSON);
+                         transformResponse: (data, headersGetter) => { 
+                             return JSON.parse(data);
                          }
                      },
                      save: {
                          method: 'POST',
                          transformRequest: (data, headersGetter) => {
-                             return JSON.stringify(injuryToJSON(data));
+                             return JSON.stringify(data);
                          }
                      },
                      byUser: {
@@ -54,15 +41,13 @@ module OhSnap.Service {
                          isArray: true,
                          url: '/api/InjuriesAPI/ByUser/:id',
                          transformResponse: (data, headersGetter) => {
-                             return _.map<any, any>(
-                                 JSON.parse(data),
-                                 injuryFromJSON);
+                             return JSON.parse(data);
                          }
                      },
                      get: {
                          method: 'GET',
                          transformResponse: (data, headersGetter) => {
-                             return injuryFromJSON(JSON.parse(data));
+                             return JSON.parse(data);
                          }
                      }
                  });

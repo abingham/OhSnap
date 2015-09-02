@@ -50,20 +50,17 @@ module OhSnap.Controller {
           Fractures: FractureResource) => {
              $scope.injuryGridOptions = {
                  columnDefs: [
-                     { name: 'Date', field: 'InjuryDate' },
+                     { name: 'Date', field: 'InjuryDate.substring(0, 10)' },
                      { name: 'Hour', field: 'InjuryHour' }
                  ],
                  enableFullRowSelection: true
              };
-
-             $scope.$watch('injuries', (newValue, oldValue) => {
-                 $scope.injuryGridOptions.data = $scope.injuries;
-             });
-
+             
              $scope.patientID = patientID;
 
              var injuries = Injuries.byUser({ id: $scope.patientID }, () => {
                  $scope.injuries = injuries;
+                 $scope.injuryGridOptions.data = $scope.injuries;
              });                          
 
              $scope.injuryGridOptions.onRegisterApi = function (gridApi) {                                
@@ -120,6 +117,7 @@ module OhSnap.Controller {
 
                     // TODO: It's at least in principle possible that injuries doesn't yet exist. Do we need to deal with that?
                     $scope.injuries.push(newInjury);
+                    newInjury.$save();
 
                     $location.path('#/');
                 };

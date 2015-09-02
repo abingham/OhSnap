@@ -32,4 +32,3 @@ var OhSnap;
             }]);
     })(App = OhSnap.App || (OhSnap.App = {}));
 })(OhSnap || (OhSnap = {}));
-//# sourceMappingURL=app.js.map
