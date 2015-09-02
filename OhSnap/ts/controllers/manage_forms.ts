@@ -117,7 +117,7 @@ module OhSnap.Controller {
 
                     // TODO: It's at least in principle possible that injuries doesn't yet exist. Do we need to deal with that?
                     $scope.injuries.push(newInjury);
-                    newInjury.$save();
+                    Injuries.save(newInjury);
 
                     $location.path('#/');
                 };
