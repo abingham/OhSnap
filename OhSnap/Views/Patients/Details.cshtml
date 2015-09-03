@@ -36,15 +36,36 @@
         </dd>
 
     </dl>
-    <strong>Injuries</strong>
-    <ul>
-        @foreach(var injury in Model.Injuries)
+    <h4>Injuries</h4>
+    @Html.ActionLink("Create New", "Create", "Incidents")
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Injuries.ElementAt(0).InjuryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Injuries.ElementAt(0).InjuryDate)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var injury in Model.Injuries)
         {
-            <li>@injury.InjuryDate - @injury.InjuryHour</li>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => injury.InjuryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => injury.InjuryHour)
+                </td>
+                
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Incidents", new { id = injury.ID }, new { }) |
+                    @Html.ActionLink("Details", "Details", "Incidents", new { id = injury.ID }, new { }) |
+                    @Html.ActionLink("Delete", "Delete", "Incidents", new { id = injury.ID }, new { })
+                </td>
+            </tr>
         }
-    </ul>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    </table>
+    

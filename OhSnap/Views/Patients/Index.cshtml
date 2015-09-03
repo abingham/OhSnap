@@ -21,7 +21,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Age)
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -39,10 +38,7 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-        <td>
-            <a href="/Patients/ManageForms/@item.ID" type="button" class="btn btn-md btn-primary">Manage forms</a>
-        </td>
+        </td>    
     </tr>
 }
 

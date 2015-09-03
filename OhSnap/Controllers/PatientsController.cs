@@ -108,12 +108,5 @@ namespace OhSnap.Controllers
                 return View();
             }
         }
-
-        // GET: Patients/ManageForms/5
-        [HttpGet]
-        public ActionResult ManageForms(int id)
-        {
-            return View(db.Patients.Find(id));
-        }
     }
 }
