@@ -27,14 +27,15 @@ namespace OhSnap.Controllers
         }
 
         // GET: Injuries/Create
-        public ActionResult Create()
+        public ActionResult Create(string parentID)
         {
+            ViewData["parentID"] = parentID;
             return View();
         }
 
-        // POST: Injuries/Create
+        // POST: Injuries/Create/:parentID
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(string parentID, FormCollection collection)
         {
             try
             {
@@ -43,12 +44,11 @@ namespace OhSnap.Controllers
                     var injury = new Injury()
                     {
                         InjuryDate = DateTime.Parse(collection["InjuryDate"]),
-                        InjuryHour = int.Parse(collection["InjuryTime"]),
-                        PatientID = int.Parse(collection["PatientID"])
+                        InjuryHour = int.Parse(collection["InjuryTime"])
                     };
                     db.Injuries.Add(injury);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", "Patients", new { id = parentID } );               
                 }
             }
             catch

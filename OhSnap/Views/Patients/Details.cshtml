@@ -37,7 +37,11 @@
 
     </dl>
     <h4>Injuries</h4>
-    @Html.ActionLink("Create New", "Create", "Incidents")
+    @Html.ActionLink("Create New", 
+                     "Create", 
+                     "Injuries", 
+                     new { parentID = Model.ID }, 
+                     null)
     <table class="table">
         <tr>
             <th>
@@ -60,9 +64,9 @@
                 </td>
                 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "Incidents", new { id = injury.ID }, new { }) |
-                    @Html.ActionLink("Details", "Details", "Incidents", new { id = injury.ID }, new { }) |
-                    @Html.ActionLink("Delete", "Delete", "Incidents", new { id = injury.ID }, new { })
+                    @Html.ActionLink("Edit", "Edit", "Injuries", new { id = injury.ID }, new { }) |
+                    @Html.ActionLink("Details", "Details", "Injuries", new { id = injury.ID }, new { }) |
+                    @Html.ActionLink("Delete", "Delete", "Injuries", new { id = injury.ID }, new { })
                 </td>
             </tr>
         }

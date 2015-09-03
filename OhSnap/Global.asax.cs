@@ -30,6 +30,12 @@ namespace OhSnap
             //);
 
             // TODO: How do we limit this to non-api stuff without having to explicitly list each controller that should match the default pattern?
+            routes.MapRoute(
+                "CreateChildren",
+                "{controller}/Create/{parentID}",
+                new { action = "Create" }
+                );
+
             routes.MapRoute (
                 "Default",
                 "{controller}/{action}/{id}",
