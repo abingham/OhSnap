@@ -43,7 +43,7 @@ namespace OhSnap.Controllers
                     var fracture = new Fracture()
                     {
                         AOCode = collection["AOCode"],
-                        InjuryID = int.Parse(collection["InjuryID"])
+                        IncidentID = int.Parse(collection["InjuryID"])
                     };
                     db.Fractures.Add(fracture);
                     db.SaveChanges();

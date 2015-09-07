@@ -14,7 +14,7 @@ namespace OhSnap.Models
         public int Age { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Incident> Injuries { get; set; }
+        public virtual ICollection<Incident> Incidents { get; set; }
     }
 }
 

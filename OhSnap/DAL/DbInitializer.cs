@@ -29,7 +29,7 @@ namespace OhSnap.DAL
 
             var fracture = new Fracture()
             {
-                InjuryID = injury.ID,
+                IncidentID = injury.ID,
                 AOCode = "33A2"
             };
             context.Fractures.Add(fracture);
@@ -53,7 +53,7 @@ namespace OhSnap.DAL
 
             fracture = new Fracture()
             {
-                InjuryID = injury.ID,
+                IncidentID = injury.ID,
                 AOCode = "22B1"
             };
             context.Fractures.Add(fracture);
