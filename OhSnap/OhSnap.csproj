@@ -1028,8 +1028,8 @@
     <Content Include="Views\Patients\Create.cshtml" />
     <Content Include="Views\Patients\Edit.cshtml" />
     <Content Include="Views\Patients\Delete.cshtml" />
-    <Content Include="Views\Injuries\Create.cshtml" />
-    <Content Include="Views\Injuries\Index.cshtml" />
+    <Content Include="Views\Incidents\Create.cshtml" />
+    <Content Include="Views\Incidents\Index.cshtml" />
     <Content Include="Views\Fractures\Index.cshtml" />
     <Content Include="Views\Fractures\Create.cshtml" />
     <Content Include="tsconfig.json" />
@@ -1057,7 +1057,7 @@
     <Compile Include="Controllers\api\PatientsAPIController.cs" />
     <Compile Include="Controllers\FracturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InjuriesController.cs" />
+    <Compile Include="Controllers\IncidentsController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\ProceduresController.cs" />
     <Compile Include="DAL\DbInitializer.cs" />
@@ -1066,7 +1066,7 @@
     </Compile>
     <Compile Include="DAL\DbContext.cs" />
     <Compile Include="Models\Fracture.cs" />
-    <Compile Include="Models\Injury.cs" />
+    <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Consultation.cs" />
     <Compile Include="Models\Procedure.cs" />

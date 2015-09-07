@@ -11,6 +11,6 @@ namespace OhSnap.Models
         // TODO: Class for AOCode? Enforce syntax?
         public string AOCode { get; set; }
 
-        public virtual Injury Injury { get; set; }
+        public virtual Incident Injury { get; set; }
     }
 }

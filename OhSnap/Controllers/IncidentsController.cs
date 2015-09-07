@@ -9,20 +9,20 @@ using OhSnap.Models;
 
 namespace OhSnap.Controllers
 {
-    public class InjuriesController : Controller
+    public class IncidentsController : Controller
     {
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 
         // GET: Injuries
         public ActionResult Index()
         {
-            return View(db.Injuries.ToList());
+            return View(db.Incidents.ToList());
         }
 
         // GET: Injuries/Details/5
         public ActionResult Details(int id)
         {
-            var injury = db.Injuries.Find(id);
+            var injury = db.Incidents.Find(id);
             return View(injury);
         }
 
@@ -41,12 +41,13 @@ namespace OhSnap.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var injury = new Injury()
+                    var injury = new Incident()
                     {
-                        InjuryDate = DateTime.Parse(collection["InjuryDate"]),
-                        InjuryHour = int.Parse(collection["InjuryTime"])
+                        PatientID = int.Parse(parentID),
+                        InjuryDate = DateTime.Parse(collection["InjuryDate"] + "T00:00:00"),
+                        InjuryHour = int.Parse(collection["InjuryHour"])
                     };
-                    db.Injuries.Add(injury);
+                    db.Incidents.Add(injury);
                     db.SaveChanges();
                     return RedirectToAction("Details", "Patients", new { id = parentID } );               
                 }
@@ -60,7 +61,7 @@ namespace OhSnap.Controllers
         // GET: Injuries/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(db.Injuries.Find(id));
+            return View(db.Incidents.Find(id));
         }
 
         // POST: Injuries/Edit/5
@@ -69,7 +70,7 @@ namespace OhSnap.Controllers
         {
             try
             {
-                var patient = db.Injuries.Find(id);
+                var patient = db.Incidents.Find(id);
                 patient.InjuryDate = DateTime.Parse(collection["InjuryDate"]);
                 patient.InjuryHour = int.Parse(collection["InjuryTime"]);
                 patient.PatientID = int.Parse(collection["PatientID"]);
@@ -95,9 +96,9 @@ namespace OhSnap.Controllers
         {
             try
             {
-                var patient = new Injury { ID = id };
-                db.Injuries.Attach(patient);
-                db.Injuries.Remove(patient);
+                var patient = new Incident { ID = id };
+                db.Incidents.Attach(patient);
+                db.Incidents.Remove(patient);
                 db.SaveChanges();
 
                 return RedirectToAction("Index");

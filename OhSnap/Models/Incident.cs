@@ -4,7 +4,7 @@ using System.Web.Mvc;
 namespace OhSnap.Models
 {
     [Bind(Exclude = "ID")]
-    public class Injury
+    public class Incident
     {
         public int ID { get; set; }
         public int PatientID { get; set; }

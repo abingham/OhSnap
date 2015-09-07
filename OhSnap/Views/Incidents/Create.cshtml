@@ -1,4 +1,4 @@
-﻿@model OhSnap.Models.Injury
+﻿@model OhSnap.Models.Incident
 
 @{
     ViewBag.Title = "Create";
@@ -20,7 +20,7 @@
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>Injury</h4>
+                <h4>Incident</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @*<div class="form-group">
@@ -41,7 +41,8 @@
                                     htmlAttributes = new
                                     {
                                         @class = "form-control",
-                                        data_provide = "datepicker"
+                                        data_provide = "datepicker",
+                                        data_date_format = "yyyy-mm-dd"
                                     }
                                 })
                         @Html.ValidationMessageFor(model => model.InjuryDate, "", new { @class = "text-danger" })
@@ -52,21 +53,21 @@
                     @Html.LabelFor(model => model.InjuryHour, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.InjuryHour, new
-               {
-                   htmlAttributes = new
-                   {
-                       @class = "form-control",
-                       min = "0",
-                       max = "23"
-                   }
-               })
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control",
+                                min = "0",
+                                max = "23"
+                            }
+                        })
                         @Html.ValidationMessageFor(model => model.InjuryHour, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <input type="submit" value="Create"  />
                         @Html.ActionLink("Cancel", "Details", "Patients", new { id = ViewData["parentID"] }, new { })
                     </div>
                 </div>
