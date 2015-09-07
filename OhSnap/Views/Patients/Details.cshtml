@@ -36,14 +36,14 @@
         </dd>
 
     </dl>
-    <h4>Injuries</h4>
+    <h4>Incidents</h4>
     @Html.ActionLink("Create New", 
                      "Create", 
                      "Incidents", 
                      new { parentID = Model.ID }, 
                      null)
     <table class="table">
-        <tr>
+        @*<tr>
             <th>
                 @Html.DisplayNameFor(model => model.Incidents.ElementAt(0).InjuryDate)
             </th>
@@ -51,24 +51,40 @@
                 @Html.DisplayNameFor(model => model.Incidents.ElementAt(0).InjuryDate)
             </th>
             <th></th>
-        </tr>
+        </tr>*@
 
-        @foreach (var injury in Model.Incidents)
+        @foreach (var incident in Model.Incidents)
         {
             <tr>
+                <td>INCIDENT</td>
                 <td>
-                    @Html.DisplayFor(modelItem => injury.InjuryDate)
+                    @Html.DisplayFor(modelItem => incident.InjuryDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => injury.InjuryHour)
+                    @Html.DisplayFor(modelItem => incident.InjuryHour)
                 </td>
                 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "Injuries", new { id = injury.ID }, new { }) |
-                    @Html.ActionLink("Details", "Details", "Injuries", new { id = injury.ID }, new { }) |
-                    @Html.ActionLink("Delete", "Delete", "Injuries", new { id = injury.ID }, new { })
+                    @Html.ActionLink("Edit", "Edit", "Incidents", new { id = incident.ID }, new { }) |
+                    @Html.ActionLink("Details", "Details", "Incidents", new { id = incident.ID }, new { }) |
+                    @Html.ActionLink("Delete", "Delete", "Incidents", new { id = incident.ID }, new { })
                 </td>
             </tr>
+            
+            foreach (var fracture in incident.Fractures)
+            {
+                <tr>
+                    <td>|_ FRACTURE</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => fracture.AOCode)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Fractures", new { id = fracture.ID }, new { }) |
+                        @Html.ActionLink("Details", "Details", "Fractures", new { id = fracture.ID }, new { }) |
+                        @Html.ActionLink("Delete", "Delete", "Fractures", new { id = fracture.ID }, new { })
+                    </td>
+                </tr>
+            }
         }
 
     </table>

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+
+using Newtonsoft.Json;
 
 namespace OhSnap.Models
 {
@@ -17,6 +20,9 @@ namespace OhSnap.Models
         public virtual Patient Patient { get; set; }
 
         // TODO: Delay
+
+        [JsonIgnore]
+        public virtual ICollection<Fracture> Fractures { get; set; }
     }
 }
 
