@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 using Newtonsoft.Json;
 
 namespace OhSnap.Models
 {
-    [Bind(Exclude = "ID")]
     public class Patient
     {
-        public int ID { get; set; }
+        // The fødselsnummer, primary key for patients
+        [Key]
+        [Required]
+        public string PersonalNumber { get; set;  }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }

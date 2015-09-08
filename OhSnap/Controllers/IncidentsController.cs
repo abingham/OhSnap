@@ -13,20 +13,20 @@ namespace OhSnap.Controllers
     {
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 
-        // GET: Injuries
+        // GET: Incidents
         public ActionResult Index()
         {
             return View(db.Incidents.ToList());
         }        
 
-        // GET: Injuries/Create/:parentID
+        // GET: Incidents/Create/:parentID
         public ActionResult Create(string parentID)
         {
             ViewData["parentID"] = parentID;
             return View();
         }
 
-        // POST: Injuries/Create/:parentID
+        // POST: Incidents/Create/:parentID
         [HttpPost]
         public ActionResult Create(string parentID, FormCollection collection)
         {
@@ -36,7 +36,7 @@ namespace OhSnap.Controllers
                 {
                     var injury = new Incident()
                     {
-                        PatientID = int.Parse(parentID),
+                        PersonalNumber = parentID,
                         InjuryDate = collection["InjuryDate"],
                         InjuryHour = int.Parse(collection["InjuryHour"])
                     };
@@ -51,13 +51,13 @@ namespace OhSnap.Controllers
             return View();
         }
 
-        // GET: Injuries/Edit/:id
+        // GET: Incidents/Edit/:id
         public ActionResult Edit(int id)
         {
             return View(db.Incidents.Find(id));
         }
 
-        // POST: Injuries/Edit/:id
+        // POST: Incidents/Edit/:id
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -77,20 +77,20 @@ namespace OhSnap.Controllers
             }
         }
 
-        // GET: Injuries/Delete/:id
+        // GET: Incidents/Delete/:id
         public ActionResult Delete(int id)
         {
             return View(db.Incidents.Find(id));
         }
 
-        // POST: Injuries/Delete/:id
+        // POST: Incidents/Delete/:id
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
                 var incident = db.Incidents.Find(id);
-                var patientID = incident.PatientID;
+                var patientID = incident.PersonalNumber;
                 db.Incidents.Remove(incident);
                 db.SaveChanges();
 

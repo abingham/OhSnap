@@ -10,18 +10,18 @@ namespace OhSnap.DbTool
     {
         static void addPatients(DbContext db) {
             var patient = new Patient () {
-                FirstName = "Bubba", LastName = "Ho-Tep", Age = 1234, ID = 3
+                FirstName = "Bubba", LastName = "Ho-Tep", Age = 1234, PersonalNumber = "1111111231234"
             };
             db.Patients.Add (patient);
             db.SaveChanges ();
 
-            //var injury = new Injury () {
-            //    AOCode = "33A3", 
-            //    InjuryDate = new DateTime (2010, 3, 4),
-            //    InjuryHour = 9,
-            //    PatientID=patient.ID
-            //};
-            //db.Injuries.Add (injury);
+            var incident = new Incident()
+            {               
+                InjuryDate = "2010-03-04",
+                InjuryHour = 9,
+                PersonalNumber = patient.PersonalNumber
+            };
+            db.Incidents.Add(incident);
 
             //patient = new Patient () {
             //    FirstName = "Joe", LastName = "Schmoe", Age = 35
@@ -40,9 +40,25 @@ namespace OhSnap.DbTool
 
         public static void Main (string[] args)
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
+
             var db = new DbContext ();
-            addPatients (db);    
-            db.SaveChanges ();
+            //addPatients (db);    
+            //db.SaveChanges ();
+
+            foreach (var patient in db.Patients)
+            {
+                System.Console.WriteLine(patient.PersonalNumber);
+
+                foreach (var incident in patient.Incidents)
+                {
+                    System.Console.Write("incident: ");
+                    System.Console.Write(incident.Patient.FirstName);
+                    System.Console.WriteLine(incident.Patient.PersonalNumber);
+                }
+            }
+
+            System.Console.ReadLine();
         }
     }
 }

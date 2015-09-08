@@ -14,7 +14,7 @@ namespace OhSnap.DAL
                 FirstName = "Bubba",
                 LastName = "Ho-Tep",
                 Age = 1234,
-                ID = 3
+                PersonalNumber = "1101991231234"
             };
             context.Patients.Add(patient);
             context.SaveChanges();
@@ -23,7 +23,7 @@ namespace OhSnap.DAL
             {
                 InjuryDate = "2010-03-04",
                 InjuryHour = 9,
-                PatientID = patient.ID
+                PersonalNumber = patient.PersonalNumber
             };
             context.Incidents.Add(injury);
 
@@ -38,7 +38,8 @@ namespace OhSnap.DAL
             {
                 FirstName = "Joe",
                 LastName = "Schmoe",
-                Age = 35
+                Age = 35,
+                PersonalNumber = "1212121231234"
             };
             context.Patients.Add(patient);
             context.SaveChanges();
@@ -47,7 +48,7 @@ namespace OhSnap.DAL
             {
                 InjuryDate = "2002-08-05",
                 InjuryHour = 23,
-                PatientID = patient.ID
+                PersonalNumber = patient.PersonalNumber
             };
             context.Incidents.Add(injury);
 

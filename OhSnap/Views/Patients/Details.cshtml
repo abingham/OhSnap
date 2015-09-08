@@ -12,6 +12,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.PersonalNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonalNumber)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
@@ -40,7 +48,7 @@
     @Html.ActionLink("Create New", 
                      "Create", 
                      "Incidents", 
-                     new { parentID = Model.ID }, 
+                     new { parentID = Model.PersonalNumber }, 
                      null)
     <table class="table">
         @*<tr>
@@ -88,4 +96,5 @@
         }
 
     </table>
+    </div>
     

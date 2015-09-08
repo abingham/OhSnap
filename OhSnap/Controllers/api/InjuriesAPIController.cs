@@ -71,9 +71,9 @@ namespace OhSnap.Controllers.API
         }
 
         // GET: /api/Injuries/ByUser/:patientid
-        public ActionResult ByUser(int id)
+        public ActionResult ByUser(string id)
         {
-            var injuries = db.Incidents.Where(i => i.PatientID == id);
+            var injuries = db.Incidents.Where(i => i.PersonalNumber == id);
             return Json(injuries, JsonRequestBehavior.AllowGet);
         }
     }

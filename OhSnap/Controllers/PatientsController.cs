@@ -19,8 +19,8 @@ namespace OhSnap.Controllers
             return View(db.Patients.ToList());
         }
    
-        // GET: Patients/Details/5
-        public ActionResult Details(int id)
+        // GET: Patients/Details/:personalNumber
+        public ActionResult Details(string id)
         {
             var patient = db.Patients.Find(id);
             return View(patient);
@@ -42,6 +42,7 @@ namespace OhSnap.Controllers
                 {
                     var patient = new Patient()
                     {
+                        PersonalNumber = collection["PersonalNumber"],
                         FirstName = collection["FirstName"],
                         LastName = collection["LastName"],
                         Age = int.Parse(collection["Age"])
@@ -57,16 +58,16 @@ namespace OhSnap.Controllers
             return View();
         }
 
-        // GET: Patients/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Patients/Edit/:personalNumber
+        public ActionResult Edit(string id)
         {
             var patient = db.Patients.Find(id);
             return View(patient);
         }
 
-        // POST: Patients/Edit/5
+        // POST: Patients/Edit/:personalNumber
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(string id, FormCollection collection)
         {
             try
             {
@@ -84,19 +85,19 @@ namespace OhSnap.Controllers
             }
         }
 
-        // GET: Patients/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Patients/Delete/:personalNumber
+        public ActionResult Delete(string id)
         {
             return View();
         }
 
-        // POST: Patients/Delete/5
+        // POST: Patients/Delete/:personalNumber
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, FormCollection collection)
         {
             try
             {
-                var patient = new Patient { ID = id };
+                var patient = new Patient { PersonalNumber = id };
                 db.Patients.Attach(patient);
                 db.Patients.Remove(patient);
                 db.SaveChanges();

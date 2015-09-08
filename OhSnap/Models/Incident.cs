@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OhSnap.Models
 {
@@ -11,7 +12,9 @@ namespace OhSnap.Models
     public class Incident
     {
         public int ID { get; set; }
-        public int PatientID { get; set; }
+
+        [ForeignKey("Patient")]
+        public string PersonalNumber { get; set; }
 
         // TODO: How are other registries handling dates? It's a real hassle converting the format between web controls and here if I use DateTime...
         // TODO: Some sort of parsing/validation of date format.
