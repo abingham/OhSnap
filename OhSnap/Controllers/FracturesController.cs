@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-using OhSnap.DAL;
 using OhSnap.Models;
 
 namespace OhSnap.Controllers
@@ -19,8 +15,8 @@ namespace OhSnap.Controllers
             return View(db.Fractures);
         }
 
-        // GET: Fractures/Details/5
-        public ActionResult Details(int id)
+        // GET: Fractures/Details/:id
+        public ActionResult Details(Guid id)
         {
             var fracture = db.Fractures.Find(id);
             return View(fracture);
@@ -56,15 +52,15 @@ namespace OhSnap.Controllers
             return View();
         }
 
-        // GET: Fractures/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Fractures/Edit/:id
+        public ActionResult Edit(Guid id)
         {
             return View();
         }
 
-        // POST: Fractures/Edit/5
+        // POST: Fractures/Edit/:id
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Guid id, FormCollection collection)
         {
             try
             {
@@ -78,15 +74,15 @@ namespace OhSnap.Controllers
             }
         }
 
-        // GET: Fractures/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Fractures/Delete/:id
+        public ActionResult Delete(Guid id)
         {
             return View();
         }
 
-        // POST: Fractures/Delete/5
+        // POST: Fractures/Delete/:id
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Guid id, FormCollection collection)
         {
             try
             {

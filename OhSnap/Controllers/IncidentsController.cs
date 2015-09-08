@@ -52,21 +52,20 @@ namespace OhSnap.Controllers
         }
 
         // GET: Incidents/Edit/:id
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
             return View(db.Incidents.Find(id));
         }
 
         // POST: Incidents/Edit/:id
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Guid id, FormCollection collection)
         {
             try
             {
                 var patient = db.Incidents.Find(id);
                 patient.InjuryDate = collection["InjuryDate"];
-                patient.InjuryHour = int.Parse(collection["InjuryHour"]);
-                // patient.PatientID = int.Parse(collection["PatientID"]);
+                patient.InjuryHour = int.Parse(collection["InjuryHour"]);                
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -78,14 +77,14 @@ namespace OhSnap.Controllers
         }
 
         // GET: Incidents/Delete/:id
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
             return View(db.Incidents.Find(id));
         }
 
         // POST: Incidents/Delete/:id
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Guid id, FormCollection collection)
         {
             try
             {
