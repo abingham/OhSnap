@@ -1034,6 +1034,7 @@
     <Content Include="Views\Fractures\Create.cshtml" />
     <Content Include="tsconfig.json" />
     <Content Include="Views\Incidents\Edit.cshtml" />
+    <Content Include="Views\Incidents\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

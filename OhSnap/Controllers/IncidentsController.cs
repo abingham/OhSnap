@@ -19,7 +19,7 @@ namespace OhSnap.Controllers
             return View(db.Incidents.ToList());
         }        
 
-        // GET: Injuries/Create
+        // GET: Injuries/Create/:parentID
         public ActionResult Create(string parentID)
         {
             ViewData["parentID"] = parentID;
@@ -51,13 +51,13 @@ namespace OhSnap.Controllers
             return View();
         }
 
-        // GET: Injuries/Edit/5
+        // GET: Injuries/Edit/:id
         public ActionResult Edit(int id)
         {
             return View(db.Incidents.Find(id));
         }
 
-        // POST: Injuries/Edit/5
+        // POST: Injuries/Edit/:id
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -77,24 +77,24 @@ namespace OhSnap.Controllers
             }
         }
 
-        // GET: Injuries/Delete/5
+        // GET: Injuries/Delete/:id
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(db.Incidents.Find(id));
         }
 
-        // POST: Injuries/Delete/5
+        // POST: Injuries/Delete/:id
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                var patient = new Incident { ID = id };
-                db.Incidents.Attach(patient);
-                db.Incidents.Remove(patient);
+                var incident = db.Incidents.Find(id);
+                var patientID = incident.PatientID;
+                db.Incidents.Remove(incident);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Patients", new { id = patientID });
             }
             catch
             {
