@@ -3,9 +3,6 @@ using System.Net;
 using System.Linq;
 using System.Web.Mvc;
 
-using Newtonsoft.Json;
-
-using OhSnap.DAL;
 using OhSnap.Models;
 
 namespace OhSnap.Controllers.API
