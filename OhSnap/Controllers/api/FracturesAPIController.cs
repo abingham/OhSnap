@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -39,9 +40,9 @@ namespace OhSnap.Controllers.API
 
         // DELETE: /api/Fractures
         [HttpDelete]
-        public HttpStatusCode Index(int id)
+        public HttpStatusCode Index(Guid id)
         {
-            var fracture = new Fracture () { ID = id };
+            var fracture = new Fracture (id);
             db.Fractures.Attach (fracture);
             db.Fractures.Remove (fracture);
             try {

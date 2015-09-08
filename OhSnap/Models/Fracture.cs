@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace OhSnap.Models
@@ -6,7 +8,9 @@ namespace OhSnap.Models
     [Bind(Exclude = "ID")]
     public class Fracture
     {
-        public int ID { get; set; }
+        [Key]
+        [Required]
+        public Guid ID { get; private set; }
 
         [ForeignKey("Incident")]
         public System.Guid IncidentID { get; set; }
@@ -15,5 +19,15 @@ namespace OhSnap.Models
         public string AOCode { get; set; }
 
         public virtual Incident Incident { get; set; }
+
+        public Fracture()
+        {
+            ID = Guid.NewGuid();
+        }
+
+        public Fracture(Guid id)
+        {
+            ID = id;
+        }
     }
 }
