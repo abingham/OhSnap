@@ -19,17 +19,18 @@ namespace OhSnap.DAL
             context.Patients.Add(patient);
             context.SaveChanges();
 
-            var injury = new Incident()
+            var incident = new Incident()
             {
                 InjuryDate = "2010-03-04",
                 InjuryHour = 9,
-                PersonalNumber = patient.PersonalNumber
+                PersonalNumber = patient.PersonalNumber,
+                ID = Guid.NewGuid()
             };
-            context.Incidents.Add(injury);
+            context.Incidents.Add(incident);
 
             var fracture = new Fracture()
             {
-                IncidentID = injury.ID,
+                IncidentID = incident.ID,
                 AOCode = "33A2"
             };
             context.Fractures.Add(fracture);
@@ -44,17 +45,18 @@ namespace OhSnap.DAL
             context.Patients.Add(patient);
             context.SaveChanges();
 
-            injury = new Incident()
+            incident = new Incident()
             {
                 InjuryDate = "2002-08-05",
                 InjuryHour = 23,
-                PersonalNumber = patient.PersonalNumber
+                PersonalNumber = patient.PersonalNumber,
+                ID = Guid.NewGuid()
             };
-            context.Incidents.Add(injury);
+            context.Incidents.Add(incident);
 
             fracture = new Fracture()
             {
-                IncidentID = injury.ID,
+                IncidentID = incident.ID,
                 AOCode = "22B1"
             };
             context.Fractures.Add(fracture);

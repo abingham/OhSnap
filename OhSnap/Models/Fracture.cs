@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace OhSnap.Models
 {
@@ -6,7 +7,9 @@ namespace OhSnap.Models
     public class Fracture
     {
         public int ID { get; set; }
-        public int IncidentID { get; set; }
+
+        [ForeignKey("Incident")]
+        public System.Guid IncidentID { get; set; }
         
         // TODO: Class for AOCode? Enforce syntax?
         public string AOCode { get; set; }

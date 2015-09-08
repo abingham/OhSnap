@@ -11,7 +11,9 @@ namespace OhSnap.Models
     [Bind(Exclude = "ID")]
     public class Incident
     {
-        public int ID { get; set; }
+        [Key]
+        [Required]
+        public System.Guid ID { get; set; }
 
         [ForeignKey("Patient")]
         public string PersonalNumber { get; set; }

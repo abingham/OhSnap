@@ -40,7 +40,7 @@ namespace OhSnap.Controllers.API
 
         // DELETE: /api/Injuries
         [HttpDelete]
-        public HttpStatusCode Index(int id)
+        public HttpStatusCode Index(System.Guid id)
         {
             var injury = new Incident () { ID = id };
             db.Incidents.Attach (injury);

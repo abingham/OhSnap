@@ -70,9 +70,9 @@ namespace OhSnap.Controllers.API
         }
 
         // GET: /api/Fractures/ByUser/:patientid
-        public ActionResult ByUser(int id)
+        public ActionResult ByUser(string id)
         {
-            var fractures = db.Fractures.Where(f => f.IncidentID == id);
+            var fractures = db.Fractures.Where(f => f.Incident.Patient.PersonalNumber == id);
             return Json(fractures, JsonRequestBehavior.AllowGet);
         }
     }

@@ -48,13 +48,19 @@ namespace OhSnap.DbTool
 
             foreach (var patient in db.Patients)
             {
-                System.Console.WriteLine(patient.PersonalNumber);
+                Console.WriteLine(string.Format("patient: {0} {1} {2}", 
+                    patient.PersonalNumber, patient.FirstName, patient.LastName));
 
                 foreach (var incident in patient.Incidents)
                 {
-                    System.Console.Write("incident: ");
-                    System.Console.Write(incident.Patient.FirstName);
-                    System.Console.WriteLine(incident.Patient.PersonalNumber);
+                    System.Console.WriteLine("    incident: {0} {1} {2} {3}", 
+                        incident.InjuryDate, incident.InjuryHour, incident.ID, incident.PersonalNumber);
+                    
+                    foreach (var fracture in incident.Fractures)
+                    {
+                        System.Console.WriteLine("        fracture: {0} {1} {2}",
+                            fracture.AOCode, fracture.ID, fracture.IncidentID);
+                    }
                 }
             }
 
