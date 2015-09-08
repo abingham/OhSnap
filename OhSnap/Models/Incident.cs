@@ -13,8 +13,8 @@ namespace OhSnap.Models
     {
         [Key]
         [Required]
-        public System.Guid ID { get; set; }
-
+        public System.Guid ID { get; private set; }
+        
         [ForeignKey("Patient")]
         public string PersonalNumber { get; set; }
 
@@ -29,6 +29,18 @@ namespace OhSnap.Models
 
         [JsonIgnore]
         public virtual ICollection<Fracture> Fractures { get; set; }
+
+        // create a new Incident entity, assigning it a new unique ID.
+        public Incident()
+        {
+            this.ID = Guid.NewGuid();
+        }
+
+        // Recreate an incident with an existing identity
+        public Incident(Guid id)
+        {
+            this.ID = id;
+        }
     }
 }
 

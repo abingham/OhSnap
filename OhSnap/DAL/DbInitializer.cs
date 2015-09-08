@@ -23,8 +23,7 @@ namespace OhSnap.DAL
             {
                 InjuryDate = "2010-03-04",
                 InjuryHour = 9,
-                PersonalNumber = patient.PersonalNumber,
-                ID = Guid.NewGuid()
+                PersonalNumber = patient.PersonalNumber             
             };
             context.Incidents.Add(incident);
 
@@ -49,8 +48,7 @@ namespace OhSnap.DAL
             {
                 InjuryDate = "2002-08-05",
                 InjuryHour = 23,
-                PersonalNumber = patient.PersonalNumber,
-                ID = Guid.NewGuid()
+                PersonalNumber = patient.PersonalNumber                
             };
             context.Incidents.Add(incident);
 
