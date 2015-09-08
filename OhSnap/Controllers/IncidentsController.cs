@@ -17,14 +17,7 @@ namespace OhSnap.Controllers
         public ActionResult Index()
         {
             return View(db.Incidents.ToList());
-        }
-
-        // GET: Injuries/Details/5
-        public ActionResult Details(int id)
-        {
-            var injury = db.Incidents.Find(id);
-            return View(injury);
-        }
+        }        
 
         // GET: Injuries/Create
         public ActionResult Create(string parentID)
@@ -44,7 +37,7 @@ namespace OhSnap.Controllers
                     var injury = new Incident()
                     {
                         PatientID = int.Parse(parentID),
-                        InjuryDate = DateTime.Parse(collection["InjuryDate"] + "T00:00:00"),
+                        InjuryDate = collection["InjuryDate"],
                         InjuryHour = int.Parse(collection["InjuryHour"])
                     };
                     db.Incidents.Add(injury);
@@ -71,9 +64,9 @@ namespace OhSnap.Controllers
             try
             {
                 var patient = db.Incidents.Find(id);
-                patient.InjuryDate = DateTime.Parse(collection["InjuryDate"]);
-                patient.InjuryHour = int.Parse(collection["InjuryTime"]);
-                patient.PatientID = int.Parse(collection["PatientID"]);
+                patient.InjuryDate = collection["InjuryDate"];
+                patient.InjuryHour = int.Parse(collection["InjuryHour"]);
+                // patient.PatientID = int.Parse(collection["PatientID"]);
                 db.SaveChanges();
 
                 return RedirectToAction("Index");

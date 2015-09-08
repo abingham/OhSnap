@@ -21,7 +21,7 @@ namespace OhSnap.DAL
 
             var injury = new Incident()
             {
-                InjuryDate = new DateTime(2010, 3, 4),
+                InjuryDate = "2010-03-04",
                 InjuryHour = 9,
                 PatientID = patient.ID
             };
@@ -45,7 +45,7 @@ namespace OhSnap.DAL
 
             injury = new Incident()
             {
-                InjuryDate = new DateTime(2002, 8, 5),
+                InjuryDate = "2002-08-05",
                 InjuryHour = 23,
                 PatientID = patient.ID
             };
