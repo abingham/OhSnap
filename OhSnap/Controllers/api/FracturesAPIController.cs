@@ -1,10 +1,8 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Linq;
 using System.Web.Mvc;
 
-using Newtonsoft.Json;
-
-using OhSnap.DAL;
 using OhSnap.Models;
 
 namespace OhSnap.Controllers.API
@@ -39,9 +37,9 @@ namespace OhSnap.Controllers.API
 
         // DELETE: /api/Fractures
         [HttpDelete]
-        public HttpStatusCode Index(int id)
+        public HttpStatusCode Index(Guid id)
         {
-            var fracture = new Fracture () { ID = id };
+            var fracture = new Fracture (id);
             db.Fractures.Attach (fracture);
             db.Fractures.Remove (fracture);
             try {
@@ -70,9 +68,9 @@ namespace OhSnap.Controllers.API
         }
 
         // GET: /api/Fractures/ByUser/:patientid
-        public ActionResult ByUser(int id)
+        public ActionResult ByUser(string id)
         {
-            var fractures = db.Fractures.Where(f => f.InjuryID == id);
+            var fractures = db.Fractures.Where(f => f.Incident.Patient.PersonalNumber == id);
             return Json(fractures, JsonRequestBehavior.AllowGet);
         }
     }

@@ -1,21 +1,23 @@
 ﻿@model OhSnap.Models.Fracture
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
-@using (Html.BeginForm()) 
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
         <h4>Fracture</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })        
-
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+       
         <div class="form-group">
             @Html.LabelFor(model => model.AOCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -26,11 +28,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
                 @Html.ActionLink(
                     "Cancel", "Details", "Patients", 
-                    new { id = ViewData["patientID"] }, new { })
+                    new { id = Model.Incident.PersonalNumber }, new { })
             </div>
         </div>
     </div>
 }
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-using OhSnap.DAL;
 using OhSnap.Models;
 
 namespace OhSnap.Controllers
@@ -13,28 +9,17 @@ namespace OhSnap.Controllers
     {
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 
-        // GET: Fractures
-        public ActionResult Index()
+        // GET: Fractures/Create/:parentID
+        public ActionResult Create(Guid parentID)
         {
-            return View(db.Fractures);
-        }
-
-        // GET: Fractures/Details/5
-        public ActionResult Details(int id)
-        {
-            var fracture = db.Fractures.Find(id);
-            return View(fracture);
-        }
-
-        // GET: Fractures/Create
-        public ActionResult Create()
-        {
+            var incident = db.Incidents.Find(parentID);
+            ViewData["patientID"] = incident.PersonalNumber;
             return View();
         }
         
-        // POST: Fractures/Create
+        // POST: Fractures/Create/:parentID
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Guid parentID, FormCollection collection)
         {
             try
             {
@@ -43,34 +28,42 @@ namespace OhSnap.Controllers
                     var fracture = new Fracture()
                     {
                         AOCode = collection["AOCode"],
-                        InjuryID = int.Parse(collection["InjuryID"])
+                        IncidentID = parentID
                     };
                     db.Fractures.Add(fracture);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+
+                    db.Entry(fracture).Reference(f => f.Incident).Load();
+                    return RedirectToAction("Details", "Patients", new { id = fracture.Incident.PersonalNumber });
                 }
             }
             catch
             { }
 
+            // TODO: This should actually report some useful error to the user (or developer...maybe breakpoint?)
             return View();
         }
 
-        // GET: Fractures/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Fractures/Edit/:id
+        public ActionResult Edit(Guid id)
         {
-            return View();
+            var fracture = db.Fractures.Find(id);
+            return View(fracture);
         }
 
-        // POST: Fractures/Edit/5
+        // POST: Fractures/Edit/:id
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Guid id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                var fracture = db.Fractures.Find(id);
+                fracture.AOCode = collection["AOCode"];
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction(
+                    "Details", "Patients", 
+                    new { id = fracture.Incident.PersonalNumber });                
             }
             catch
             {
@@ -78,26 +71,30 @@ namespace OhSnap.Controllers
             }
         }
 
-        // GET: Fractures/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Fractures/Delete/:id
+        public ActionResult Delete(Guid id)
         {
-            return View();
+            var fracture = db.Fractures.Find(id);
+            return View(fracture);
         }
 
-        // POST: Fractures/Delete/5
+        // POST: Fractures/Delete/:id
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Guid id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                var fracture = db.Fractures.Find(id);
+                var patientID = fracture.Incident.PersonalNumber;
+                db.Fractures.Remove(fracture);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Patients", new { id = patientID });
             }
             catch
             {
                 return View();
-            }
+            }            
         }
     }
 }

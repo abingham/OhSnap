@@ -12,6 +12,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.PersonalNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonalNumber)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
@@ -36,15 +44,64 @@
         </dd>
 
     </dl>
-    <strong>Injuries</strong>
-    <ul>
-        @foreach(var injury in Model.Injuries)
+    <h4>Incidents</h4>
+    @Html.ActionLink("Add incident", 
+                     "Create", 
+                     "Incidents", 
+                     new { parentID = Model.PersonalNumber }, 
+                     null)
+    <table class="table">
+        @*<tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Incidents.ElementAt(0).InjuryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Incidents.ElementAt(0).InjuryDate)
+            </th>
+            <th></th>
+        </tr>*@
+
+        @foreach (var incident in Model.Incidents)
         {
-            <li>@injury.InjuryDate - @injury.InjuryHour</li>
+            <tr>
+                <td>INCIDENT</td>
+                <td>
+                    @Html.DisplayFor(modelItem => incident.InjuryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => incident.InjuryHour)
+                </td>
+                
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Incidents", new { id = incident.ID }, new { }) |
+                    @*@Html.ActionLink("Details", "Details", "Incidents", new { id = incident.ID }, new { }) |*@
+                    @Html.ActionLink("Delete", "Delete", "Incidents", new { id = incident.ID }, new { })
+                </td>
+                <td>
+                    @Html.ActionLink("Add fracture",
+                        "Create",
+                        "Fractures",
+                        new { parentID = incident.ID },
+                        null)
+                </td>
+            </tr>
+            
+            foreach (var fracture in incident.Fractures)
+            {
+                <tr>
+                    <td>|_ FRACTURE</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => fracture.AOCode)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Fractures", new { id = fracture.ID }, new { }) |
+                        @*@Html.ActionLink("Details", "Details", "Fractures", new { id = fracture.ID }, new { }) |*@
+                        @Html.ActionLink("Delete", "Delete", "Fractures", new { id = fracture.ID }, new { })
+                    </td>
+                </tr>
+            }
         }
-    </ul>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    </table>
+    </div>
+    

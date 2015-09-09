@@ -43,9 +43,9 @@ namespace OhSnap.Controllers.API
 
         // DELETE: /api/Patients
         [HttpDelete]
-        public HttpStatusCode Index(int id)
+        public HttpStatusCode Index(string id)
         {
-            var patient = new Patient () { ID = id };
+            var patient = new Patient () { PersonalNumber = id };
             db.Patients.Attach (patient);
             db.Patients.Remove (patient);
             try {

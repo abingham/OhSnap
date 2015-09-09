@@ -18,16 +18,16 @@ namespace OhSnap.Controllers.API
         [HttpGet]
         public ActionResult Index()
         {
-            return Json (db.Injuries, JsonRequestBehavior.AllowGet);
+            return Json (db.Incidents, JsonRequestBehavior.AllowGet);
         }
 
         // POST: /api/Injuries/
         [HttpPost]
-        public ActionResult Index(Injury injury)
+        public ActionResult Index(Incident injury)
         {
            if (ModelState.IsValid)
             {
-                db.Injuries.Add(injury);
+                db.Incidents.Add(injury);
                 db.SaveChanges();
 
                 return Json (injury);
@@ -40,11 +40,11 @@ namespace OhSnap.Controllers.API
 
         // DELETE: /api/Injuries
         [HttpDelete]
-        public HttpStatusCode Index(int id)
+        public HttpStatusCode Index(System.Guid id)
         {
-            var injury = new Injury () { ID = id };
-            db.Injuries.Attach (injury);
-            db.Injuries.Remove (injury);
+            var injury = new Incident (id);
+            db.Incidents.Attach (injury);
+            db.Incidents.Remove (injury);
             try {
                 db.SaveChanges ();
             } catch (System.Data.DataException) {
@@ -61,7 +61,7 @@ namespace OhSnap.Controllers.API
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var injury = db.Injuries.Find (id);
+            var injury = db.Incidents.Find (id);
             if (injury == null)
             {
                 return HttpNotFound();
@@ -71,9 +71,9 @@ namespace OhSnap.Controllers.API
         }
 
         // GET: /api/Injuries/ByUser/:patientid
-        public ActionResult ByUser(int id)
+        public ActionResult ByUser(string id)
         {
-            var injuries = db.Injuries.Where(i => i.PatientID == id);
+            var injuries = db.Incidents.Where(i => i.PersonalNumber == id);
             return Json(injuries, JsonRequestBehavior.AllowGet);
         }
     }
