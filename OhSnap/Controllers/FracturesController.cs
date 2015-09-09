@@ -22,15 +22,17 @@ namespace OhSnap.Controllers
             return View(fracture);
         }
 
-        // GET: Fractures/Create
-        public ActionResult Create()
+        // GET: Fractures/Create/:parentID
+        public ActionResult Create(Guid parentID)
         {
+            var incident = db.Incidents.Find(parentID);
+            ViewData["patientID"] = incident.PersonalNumber;
             return View();
         }
         
-        // POST: Fractures/Create
+        // POST: Fractures/Create/:parentID
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Guid parentID, FormCollection collection)
         {
             try
             {
@@ -39,16 +41,19 @@ namespace OhSnap.Controllers
                     var fracture = new Fracture()
                     {
                         AOCode = collection["AOCode"],
-                        IncidentID = System.Guid.Parse(collection["InjuryID"])
+                        IncidentID = parentID
                     };
                     db.Fractures.Add(fracture);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+
+                    db.Entry(fracture).Reference(f => f.Incident).Load();
+                    return RedirectToAction("Details", "Patients", new { id = fracture.Incident.PersonalNumber });
                 }
             }
             catch
             { }
 
+            // TODO: This should actually report some useful error to the user (or developer...maybe breakpoint?)
             return View();
         }
 

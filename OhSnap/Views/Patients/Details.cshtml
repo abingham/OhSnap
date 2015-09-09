@@ -45,7 +45,7 @@
 
     </dl>
     <h4>Incidents</h4>
-    @Html.ActionLink("Create New", 
+    @Html.ActionLink("Add incident", 
                      "Create", 
                      "Incidents", 
                      new { parentID = Model.PersonalNumber }, 
@@ -76,6 +76,13 @@
                     @Html.ActionLink("Edit", "Edit", "Incidents", new { id = incident.ID }, new { }) |
                     @*@Html.ActionLink("Details", "Details", "Incidents", new { id = incident.ID }, new { }) |*@
                     @Html.ActionLink("Delete", "Delete", "Incidents", new { id = incident.ID }, new { })
+                </td>
+                <td>
+                    @Html.ActionLink("Add fracture",
+                        "Create",
+                        "Fractures",
+                        new { parentID = incident.ID },
+                        null)
                 </td>
             </tr>
             

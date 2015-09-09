@@ -61,6 +61,14 @@ namespace OhSnap.DbTool
                         System.Console.WriteLine("        fracture: {0} {1} {2}",
                             fracture.AOCode, fracture.ID, fracture.IncidentID);
                     }
+
+                    var frac = new Fracture()
+                    {
+                        AOCode = "33A3",
+                        IncidentID = incident.ID
+                    };
+                    db.Fractures.Add(frac);
+                    Console.WriteLine(frac.Incident);
                 }
             }
 

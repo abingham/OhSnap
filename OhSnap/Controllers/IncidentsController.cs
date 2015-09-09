@@ -22,7 +22,7 @@ namespace OhSnap.Controllers
         // GET: Incidents/Create/:parentID
         public ActionResult Create(string parentID)
         {
-            ViewData["parentID"] = parentID;
+            ViewData["patientID"] = parentID;
             return View();
         }
 
