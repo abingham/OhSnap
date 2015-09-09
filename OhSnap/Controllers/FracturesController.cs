@@ -82,7 +82,8 @@ namespace OhSnap.Controllers
         // GET: Fractures/Delete/:id
         public ActionResult Delete(Guid id)
         {
-            return View();
+            var fracture = db.Fractures.Find(id);
+            return View(fracture);
         }
 
         // POST: Fractures/Delete/:id
@@ -91,14 +92,17 @@ namespace OhSnap.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                var fracture = db.Fractures.Find(id);
+                var patientID = fracture.Incident.PersonalNumber;
+                db.Fractures.Remove(fracture);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Patients", new { id = patientID });
             }
             catch
             {
                 return View();
-            }
+            }            
         }
     }
 }
