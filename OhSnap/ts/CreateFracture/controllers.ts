@@ -9,6 +9,7 @@ module OhSnap.CreateFracture.Controllers {
     var createFractureControllers: angular.IModule = angular.module(
         'CreateFractureControllers',
         [
+            'ui.bootstrap'
             // 'OhSnapServices'
         ]);
 
@@ -32,22 +33,52 @@ module OhSnap.CreateFracture.Controllers {
 
     createFractureControllers.controller(
         'CreateFractureCtrl',
-        ['$scope',
+        ['$scope', '$modal',
 
-            ($scope: CreateFractureScope) => {
+            ($scope: CreateFractureScope,
+             $modal) => {
                 $scope.ao_code = null;
 
                 $scope.aoPrefixClicked = (prefix: string) => {
-                    //var modalInstance = $modal.open({
-                    //    templateUrl: 'aoSelectionDialog.html',
-                    //    controller: 'AOSelectionInstanceCtrl',
-                    //    resolve: {
-                    //        prefix: () => { return prefix; }
-                    //    }
-                    //});
-                    $scope.ao_code = prefix;
-                    $scope.$apply();
+                    var modalInstance = $modal.open({
+                        templateUrl: '/aoSelectionDialog.html',
+                        controller: 'AOSelectionInstanceCtrl',
+                        resolve: {
+                            prefix: () => { return prefix; }
+                        }
+                    });
                 }
             }
         ]);
+
+    export interface AOSelectionInstanceScope extends angular.IScope {
+        //prefixedAoCodes: FracReg.Controller.AOInfo[];
+
+        //// Available dialog actions.
+        //ok: () => void;
+        //cancel: () => void;
+    }
+
+    createFractureControllers.controller(
+        'AOSelectionInstanceCtrl',
+        ($scope: any,
+            $modalInstance: angular.ui.bootstrap.IModalServiceInstance,
+            prefix: string) => {
+            //var all_codes: [OhSnap..Controller.AOInfo] = AOCodes.query({}, () => {
+            //    // Find all ao-codes that match the current prefix
+            //    $scope.prefixedAoCodes = _.filter(
+            //        all_codes,
+            //        (c) => {
+            //            return (c.id.substring(0, 2) == prefix);
+            //        });
+            //});
+
+            //$scope.select = (aoInfo: FracReg.Controller.AOInfo) => {
+            //    $modalInstance.close(aoInfo);
+            //};
+
+            //$scope.cancel = () => {
+            //    $modalInstance.dismiss('cancel');
+            //};
+        });    
 }

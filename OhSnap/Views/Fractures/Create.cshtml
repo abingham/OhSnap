@@ -8,6 +8,7 @@
 @section scripts
 {
     <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="~/Scripts/snap/snap.svg-min.js"></script>
     <script src="~/ts/CreateFracture/app.js"></script>
     <script src="~/ts/CreateFracture/controllers.js"></script>
@@ -15,6 +16,25 @@
 }
 
 <div ng-app="CreateFractureApp">
+    <div>
+        <script type="text/ng-template" id="/aoSelectionDialog.html">
+            <div class="modal-header">
+                <h4 class="modal-title">Velg AO Kode</h4>
+            </div>
+            <div class="modal-body row">
+                <div ng-repeat="ao_info in prefixedAoCodes">
+                    <div class="col-md-3">
+                        <img src="/ao_image/{{ao_info.id}}" height="50px" ng-click="select(ao_info)" /><br>
+                        <label>{{ao_info.id}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
+
     <div ng-controller="CreateFractureCtrl">
         <h2>Create</h2>
 
