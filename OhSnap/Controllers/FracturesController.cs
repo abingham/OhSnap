@@ -74,7 +74,9 @@ namespace OhSnap.Controllers
                 fracture.AOCode = collection["AOCode"];
                 db.SaveChanges();
 
-                return RedirectToAction("Index");                
+                return RedirectToAction(
+                    "Details", "Patients", 
+                    new { id = fracture.Incident.PersonalNumber });                
             }
             catch
             {
