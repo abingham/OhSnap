@@ -1036,6 +1036,7 @@
     <Content Include="Views\Incidents\Edit.cshtml" />
     <Content Include="Views\Incidents\Delete.cshtml" />
     <Content Include="Views\Fractures\Delete.cshtml" />
+    <Content Include="Views\Fractures\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

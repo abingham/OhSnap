@@ -9,18 +9,18 @@ namespace OhSnap.Controllers
     {
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 
-        // GET: Fractures
-        public ActionResult Index()
-        {
-            return View(db.Fractures);
-        }
+        //// GET: Fractures
+        //public ActionResult Index()
+        //{
+        //    return View(db.Fractures);
+        //}
 
-        // GET: Fractures/Details/:id
-        public ActionResult Details(Guid id)
-        {
-            var fracture = db.Fractures.Find(id);
-            return View(fracture);
-        }
+        //// GET: Fractures/Details/:id
+        //public ActionResult Details(Guid id)
+        //{
+        //    var fracture = db.Fractures.Find(id);
+        //    return View(fracture);
+        //}
 
         // GET: Fractures/Create/:parentID
         public ActionResult Create(Guid parentID)
@@ -60,7 +60,8 @@ namespace OhSnap.Controllers
         // GET: Fractures/Edit/:id
         public ActionResult Edit(Guid id)
         {
-            return View();
+            var fracture = db.Fractures.Find(id);
+            return View(fracture);
         }
 
         // POST: Fractures/Edit/:id
@@ -69,9 +70,11 @@ namespace OhSnap.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                var fracture = db.Fractures.Find(id);
+                fracture.AOCode = collection["AOCode"];
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");                
             }
             catch
             {
