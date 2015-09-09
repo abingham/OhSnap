@@ -9,19 +9,6 @@ namespace OhSnap.Controllers
     {
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 
-        //// GET: Fractures
-        //public ActionResult Index()
-        //{
-        //    return View(db.Fractures);
-        //}
-
-        //// GET: Fractures/Details/:id
-        //public ActionResult Details(Guid id)
-        //{
-        //    var fracture = db.Fractures.Find(id);
-        //    return View(fracture);
-        //}
-
         // GET: Fractures/Create/:parentID
         public ActionResult Create(Guid parentID)
         {
