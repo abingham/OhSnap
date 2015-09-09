@@ -63,12 +63,12 @@ namespace OhSnap.Controllers
         {
             try
             {
-                var patient = db.Incidents.Find(id);
-                patient.InjuryDate = collection["InjuryDate"];
-                patient.InjuryHour = int.Parse(collection["InjuryHour"]);                
+                var incident = db.Incidents.Find(id);
+                incident.InjuryDate = collection["InjuryDate"];
+                incident.InjuryHour = int.Parse(collection["InjuryHour"]);                
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Patients", new { id = incident.PersonalNumber });
             }
             catch
             {
