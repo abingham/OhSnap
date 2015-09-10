@@ -16,11 +16,11 @@ namespace OhSnap
         {
             routes.IgnoreRoute ("{resource}.axd/{*pathInfo}");
 
-            //routes.MapRoute (
-            //    "API",
-            //    "api/{controller}/{action}/{id}",
-            //    namespaces: new string[] { "OhSnap.Controllers.API" }
-            //);
+            routes.MapRoute(
+                "API",
+                "api/{controller}/{action}/{id}",
+                namespaces: new string[] { "OhSnap.Controllers.api" }
+            );
 
             //routes.MapRoute (
             //    "APIIndex",

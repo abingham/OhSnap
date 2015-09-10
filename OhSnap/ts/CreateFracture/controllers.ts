@@ -59,6 +59,7 @@ module OhSnap.CreateFracture.Controllers {
         //cancel: () => void;
     }
 
+    // Controller for AO Code selection modal dialog box.
     createFractureControllers.controller(
         'AOSelectionInstanceCtrl',
         ($scope: any,

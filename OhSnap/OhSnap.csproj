@@ -1040,6 +1040,7 @@
     <Content Include="Views\Incidents\Delete.cshtml" />
     <Content Include="Views\Fractures\Delete.cshtml" />
     <Content Include="Views\Fractures\Edit.cshtml" />
+    <Content Include="Static\ao_codes.yaml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1057,6 +1058,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\api\AOCodeAPIController.cs" />
     <Compile Include="Controllers\api\FracturesAPIController.cs" />
     <Compile Include="Controllers\api\InjuriesAPIController.cs" />
     <Compile Include="Controllers\api\JsonNetController.cs" />
@@ -1079,6 +1081,11 @@
     <Compile Include="Models\Procedure.cs" />
     <Compile Include="Models\PROM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -1108,7 +1115,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AOCodeAPI\" />
     <Folder Include="Views\Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AOLoader\AOLoader.csproj">
+      <Project>{09b660c3-6326-4133-b59c-220c540671b2}</Project>
+      <Name>AOLoader</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
