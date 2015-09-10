@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OhSnap", "OhSnap\OhSnap.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbtool", "dbtool\dbtool.csproj", "{3DF62EF4-582D-4BDC-92CC-67045274819B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOLoader", "AOLoader\AOLoader.csproj", "{09B660C3-6326-4133-B59C-220C540671B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOLoaderTest", "AOLoaderTest\AOLoaderTest.csproj", "{6A15AA79-3505-47FF-A7BF-DCD371BCB4AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{3DF62EF4-582D-4BDC-92CC-67045274819B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DF62EF4-582D-4BDC-92CC-67045274819B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DF62EF4-582D-4BDC-92CC-67045274819B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09B660C3-6326-4133-B59C-220C540671B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09B660C3-6326-4133-B59C-220C540671B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09B660C3-6326-4133-B59C-220C540671B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09B660C3-6326-4133-B59C-220C540671B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A15AA79-3505-47FF-A7BF-DCD371BCB4AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A15AA79-3505-47FF-A7BF-DCD371BCB4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A15AA79-3505-47FF-A7BF-DCD371BCB4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A15AA79-3505-47FF-A7BF-DCD371BCB4AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
