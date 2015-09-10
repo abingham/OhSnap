@@ -14,7 +14,8 @@ namespace AOLoaderTest
         {
             foreach (var c in AOLoader.AOLoader.loadFile(args[0]))
             {
-                Console.WriteLine(c.Code);
+                Console.WriteLine("{0} [{1}] {2}", 
+                    c.Code, string.Join(", ", c.Name), c.Description);
             }
 
             Console.ReadLine();

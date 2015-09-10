@@ -15,18 +15,64 @@ namespace AOLoader
         {
             public string Code;
             public string[] Name;
-            public string description;
+            public string Description;
         }
 
-        private static IEnumerable<Classification> load(YamlMappingNode node)
+        private static string GetPrefix(YamlMappingNode node)
         {
-            foreach (var entry in node.Children)
+            try
             {
-                yield return new Classification()
-                {
-                    Code = ((YamlScalarNode)entry.Key).Value
-                };
+                var prefixNode = node.Children.First(c => ((YamlScalarNode)c.Key).Value == "_prefix");
+                return ((YamlScalarNode)prefixNode.Value).Value;
             }
+            catch (InvalidOperationException)
+            {
+                // We get to here if no "_prefix" node was found.
+                return "";
+            }                        
+        }
+
+        private static IEnumerable<Classification> load(YamlMappingNode node,
+                                                        string prefix = "",
+                                                        List<string> names = null)
+        {
+            if (null == names)
+            {
+                names = new List<string>();
+            }
+
+            foreach (var childNode in node.Children)
+            {                
+                var name = ((YamlScalarNode)childNode.Key).Value;
+
+                if (name == "_classifications")
+                {
+                    foreach (var classificationMapping in (YamlMappingNode)childNode.Value)
+                    {
+                        var code = ((YamlScalarNode)classificationMapping.Key).Value;
+                        var description = ((YamlScalarNode)classificationMapping.Value).Value;
+                        yield return new Classification()
+                        {
+                            Code = prefix + code,
+                            Name = names.ToArray<string>(),
+                            Description = description
+                        };
+                    }
+                }
+                else if (!name.StartsWith("_"))
+                {
+                    var body = (YamlMappingNode)childNode.Value;
+
+
+                    var newPrefix = prefix + GetPrefix(body);
+                    names.Add(name);                    
+                    foreach (var c in load(body, newPrefix, names))
+                    {
+                        yield return c;
+                    }
+                    names.RemoveAt(names.Count - 1);     
+                }
+            }            
         }
 
         public static IEnumerable<Classification> load(StreamReader input)
