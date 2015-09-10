@@ -9,8 +9,8 @@ module OhSnap.CreateFracture.Controllers {
     var createFractureControllers: angular.IModule = angular.module(
         'CreateFractureControllers',
         [
-            'ui.bootstrap'
-            // 'OhSnapServices'
+            'ui.bootstrap',
+            'OhSnapServices'
         ]);
 
     //interface Selection {
@@ -33,10 +33,12 @@ module OhSnap.CreateFracture.Controllers {
 
     createFractureControllers.controller(
         'CreateFractureCtrl',
-        ['$scope', '$modal',
-
+        ['$scope',
+            '$modal',
+            'AOCodes',
             ($scope: CreateFractureScope,
-             $modal) => {
+                $modal,
+                AOCodes) => {
                 $scope.ao_code = null;
 
                 $scope.aoPrefixClicked = (prefix: string) => {
@@ -44,13 +46,15 @@ module OhSnap.CreateFracture.Controllers {
                         templateUrl: '/aoSelectionDialog.html',
                         controller: 'AOSelectionInstanceCtrl',
                         resolve: {
-                            prefix: () => { return prefix; }
+                            prefix: () => { return prefix; },
+                            AOCodes: () => { return AOCodes; }
                         }
                     });
                 }
             }
         ]);
 
+    // TODO: Put the typing back in place once things have settled down.
     export interface AOSelectionInstanceScope extends angular.IScope {
         //prefixedAoCodes: FracReg.Controller.AOInfo[];
 
@@ -64,22 +68,23 @@ module OhSnap.CreateFracture.Controllers {
         'AOSelectionInstanceCtrl',
         ($scope: any,
             $modalInstance: angular.ui.bootstrap.IModalServiceInstance,
-            prefix: string) => {
-            //var all_codes: [OhSnap..Controller.AOInfo] = AOCodes.query({}, () => {
-            //    // Find all ao-codes that match the current prefix
-            //    $scope.prefixedAoCodes = _.filter(
-            //        all_codes,
-            //        (c) => {
-            //            return (c.id.substring(0, 2) == prefix);
-            //        });
-            //});
+            prefix: string
+            AOCodes: any) => {
+            var all_codes = AOCodes.query({}, () => {
+                // Find all ao-codes that match the current prefix
+                $scope.prefixedAoCodes = _.filter(
+                    all_codes,
+                    (c: any) => {
+                        return (c.Code.substring(0, 2) == prefix);
+                    });
+            });
 
-            //$scope.select = (aoInfo: FracReg.Controller.AOInfo) => {
-            //    $modalInstance.close(aoInfo);
-            //};
+            $scope.select = (aoInfo) => {
+                $modalInstance.close(aoInfo);
+            };
 
-            //$scope.cancel = () => {
-            //    $modalInstance.dismiss('cancel');
-            //};
+            $scope.cancel = () => {
+                $modalInstance.dismiss('cancel');
+            };
         });    
 }

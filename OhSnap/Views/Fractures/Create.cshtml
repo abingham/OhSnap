@@ -8,8 +8,10 @@
 @section scripts
 {
     <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-resource.js"></script>
     <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="~/Scripts/snap/snap.svg-min.js"></script>
+    <script src="~/ts/services.js"></script>
     <script src="~/ts/CreateFracture/app.js"></script>
     <script src="~/ts/CreateFracture/controllers.js"></script>
     <script src="~/ts/CreateFracture/directives.js"></script>
@@ -25,8 +27,8 @@
             <div class="modal-body row">
                 <div ng-repeat="ao_info in prefixedAoCodes">
                     <div class="col-md-3">
-                        <img src="/ao_image/{{ao_info.id}}" height="50px" ng-click="select(ao_info)" /><br>
-                        <label>{{ao_info.id}}</label>
+                        <img src="/ao_image/{{ao_info.Code}}" height="50px" ng-click="select(ao_info)" /><br>
+                        <label>{{ao_info.Code}}</label>
                     </div>
                 </div>
             </div>
@@ -79,8 +81,8 @@
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Create" class="btn btn-default" />
                                 @Html.ActionLink(
-                    "Cancel", "Details", "Patients",
-                    new { id = ViewData["patientID"] }, new { })
+                                    "Cancel", "Details", "Patients",
+                                    new { id = ViewData["patientID"] }, new { })
                             </div>
                         </div>
                     </div>

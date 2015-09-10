@@ -68,4 +68,11 @@ module OhSnap.Service {
                         }                        
                     });
             }]);
+
+    ohSnapServices.factory(
+        'AOCodes',
+        ['$resource',
+            function ($resource: angular.resource.IResourceService) {
+                return $resource('/api/AOCodes/');
+            }]);
 }
