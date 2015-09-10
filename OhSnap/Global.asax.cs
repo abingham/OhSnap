@@ -18,31 +18,24 @@ namespace OhSnap
 
             routes.MapRoute(
                 "API",
-                "api/{controller}/{action}/{id}",
+                "api/{controller}/{action}",
+                new { action = "Index" },
                 namespaces: new string[] { "OhSnap.Controllers.api" }
-            );
-
-            //routes.MapRoute (
-            //    "APIIndex",
-            //    "api/{controller}/{id}",
-            //    new { action = "Index", id = "" },
-            //    namespaces: new string[] { "OhSnap.Controllers.API" }
-            //);
-
-            // TODO: How do we limit this to non-api stuff without having to explicitly list each controller that should match the default pattern?
+            ).DataTokens["UseNamespaceFallback"] = false;            
+            
             routes.MapRoute(
                 "CreateChildren",
                 "{controller}/Create/{parentID}",
-                new { action = "Create" }
-                );
+                new { action = "Create" },
+                namespaces: new string[] { "OhSnap.Controllers" }
+            ).DataTokens["UseNamespaceFallback"] = false; ;
 
             routes.MapRoute (
                 "Default",
                 "{controller}/{action}/{id}",
                 new { action = "Index", controller = "Home", id = ""},
                 namespaces: new string[] { "OhSnap.Controllers" }
-            );
-
+            ).DataTokens["UseNamespaceFallback"] = false; ;            
         }
 
         public static void RegisterGlobalFilters (GlobalFilterCollection filters)
