@@ -4,9 +4,9 @@ using System.Web.Mvc;
 using OhSnap.DAL;
 using OhSnap.Models;
 
-namespace OhSnap.Controllers.API
+namespace OhSnap.Areas.api.Controllers
 {
-    public class PatientsAPIController : JsonNetController
+    public class PatientsController : JsonNetController
     {
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 

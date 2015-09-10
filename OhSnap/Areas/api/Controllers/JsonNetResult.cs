@@ -3,7 +3,8 @@ using System.Web.Mvc;
 
 using Newtonsoft.Json;
 
-namespace OhSnap.Controllers.API
+// TODO: This should probably be moved into a more generic, less area-specific location.
+namespace OhSnap.Areas.api.Controllers
 {
     /* A JsonResult subclass which uses JSON.NET (newtonsoft) for en/decoding.
      * 

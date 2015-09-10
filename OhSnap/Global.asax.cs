@@ -16,19 +16,19 @@ namespace OhSnap
         {
             routes.IgnoreRoute ("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                "API",
-                "api/{controller}/{action}",
-                new { action = "Index" },
-                namespaces: new string[] { "OhSnap.Controllers.api" }
-            ).DataTokens["UseNamespaceFallback"] = false;            
+            //routes.MapRoute(
+            //    "API",
+            //    "api/{controller}/{action}",
+            //    new { action = "Index" },
+            //    namespaces: new string[] { "OhSnap.Controllers.api" }
+            //).DataTokens["UseNamespaceFallback"] = false;            
             
-            routes.MapRoute(
-                "CreateChildren",
-                "{controller}/Create/{parentID}",
-                new { action = "Create" },
-                namespaces: new string[] { "OhSnap.Controllers" }
-            ).DataTokens["UseNamespaceFallback"] = false; ;
+            //routes.MapRoute(
+            //    "CreateChildren",
+            //    "{controller}/Create/{parentID}",
+            //    new { action = "Create" },
+            //    namespaces: new string[] { "OhSnap.Controllers" }
+            //).DataTokens["UseNamespaceFallback"] = false; ;
 
             routes.MapRoute (
                 "Default",

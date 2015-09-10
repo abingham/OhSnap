@@ -186,6 +186,7 @@
     <Content Include="Content\ui-grid.eot" />
     <Content Include="Content\ui-grid.ttf" />
     <Content Include="Content\ui-grid.woff" />
+    <Content Include="Areas\api\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1058,12 +1059,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\api\AOCodeAPIController.cs" />
-    <Compile Include="Controllers\api\FracturesAPIController.cs" />
-    <Compile Include="Controllers\api\InjuriesAPIController.cs" />
-    <Compile Include="Controllers\api\JsonNetController.cs" />
-    <Compile Include="Controllers\api\JsonNetResult.cs" />
-    <Compile Include="Controllers\api\PatientsAPIController.cs" />
+    <Compile Include="Areas\api\apiAreaRegistration.cs" />
+    <Compile Include="Areas\api\Controllers\AOCodesController.cs" />
+    <Compile Include="Areas\api\Controllers\FracturesController.cs" />
+    <Compile Include="Areas\api\Controllers\InjuriesController.cs" />
+    <Compile Include="Areas\api\Controllers\JsonNetController.cs" />
+    <Compile Include="Areas\api\Controllers\JsonNetResult.cs" />
+    <Compile Include="Areas\api\Controllers\PatientsController.cs" />
     <Compile Include="Controllers\FracturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidentsController.cs" />
@@ -1115,6 +1117,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\api\Models\" />
+    <Folder Include="Areas\api\Views\Shared\" />
     <Folder Include="Views\AOCodeAPI\" />
     <Folder Include="Views\Procedures\" />
   </ItemGroup>

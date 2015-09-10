@@ -1,7 +1,8 @@
 ﻿using System.Text;
 using System.Web.Mvc;
 
-namespace OhSnap.Controllers.API
+// TODO: This should probably be moved into a more generic, less area-specific location.
+namespace OhSnap.Areas.api.Controllers
 {
     /* A controller derivative that uses JSON.NET for JSON en/decoding.
      * 

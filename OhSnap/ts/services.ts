@@ -12,7 +12,7 @@ module OhSnap.Service {
         'Patients',
         ['$resource',
          function($resource: angular.resource.IResourceService){
-             return $resource('/api/PatientsAPI/:id');
+             return $resource('/api/Patients/:id');
          }]);
         
     ohSnapServices.factory(
@@ -20,7 +20,7 @@ module OhSnap.Service {
         ['$resource',
          function($resource: angular.resource.IResourceService){
              return $resource(
-                 '/api/InjuriesAPI/:id',
+                 '/api/Injuries/:id',
                  {},
                  { 
                      query: {
@@ -39,7 +39,7 @@ module OhSnap.Service {
                      byUser: {
                          method: 'GET',
                          isArray: true,
-                         url: '/api/InjuriesAPI/ByUser/:id',
+                         url: '/api/Injuries/ByUser/:id',
                          transformResponse: (data, headersGetter) => {
                              return JSON.parse(data);
                          }
@@ -58,13 +58,13 @@ module OhSnap.Service {
         ['$resource',
             function ($resource: angular.resource.IResourceService) {
                 return $resource(
-                    '/api/FracturesAPI/:id',
+                    '/api/Fractures/:id',
                     {},
                     {                         
                         byInjury: {
                             method: 'GET',
                             isArray: true,
-                            url: '/api/FracturesAPI/ByUser/:id'
+                            url: '/api/Fractures/ByUser/:id'
                         }                        
                     });
             }]);

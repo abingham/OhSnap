@@ -1,33 +1,36 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Linq;
 using System.Web.Mvc;
 
+using Newtonsoft.Json;
+
+using OhSnap.DAL;
 using OhSnap.Models;
 
-namespace OhSnap.Controllers.API
+namespace OhSnap.Areas.api.Controllers
 {
-    public class FracturesAPIController : JsonNetController
+    public class InjuriesController : JsonNetController
     {
+        // TODO: Centralize this? It's currently replicated for e.g. PatientsController
         private OhSnap.DAL.DbContext db = new OhSnap.DAL.DbContext();
 
-        // GET: /api/Fractures/
+        // GET: /api/Injuries/
         [HttpGet]
         public ActionResult Index()
         {
-            return Json (db.Fractures, JsonRequestBehavior.AllowGet);
+            return Json (db.Incidents, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: /api/Fractures/
+        // POST: /api/Injuries/
         [HttpPost]
-        public ActionResult Index(Fracture fracture)
+        public ActionResult Index(Incident injury)
         {
-            if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
-                db.Fractures.Add(fracture);
+                db.Incidents.Add(injury);
                 db.SaveChanges();
 
-                return Json (fracture);
+                return Json (injury);
             }
 
             // TODO: Is this the right thing to return?
@@ -35,13 +38,13 @@ namespace OhSnap.Controllers.API
                 HttpStatusCode.InternalServerError);
         }
 
-        // DELETE: /api/Fractures
+        // DELETE: /api/Injuries
         [HttpDelete]
-        public HttpStatusCode Index(Guid id)
+        public HttpStatusCode Index(System.Guid id)
         {
-            var fracture = new Fracture (id);
-            db.Fractures.Attach (fracture);
-            db.Fractures.Remove (fracture);
+            var injury = new Incident (id);
+            db.Incidents.Attach (injury);
+            db.Incidents.Remove (injury);
             try {
                 db.SaveChanges ();
             } catch (System.Data.DataException) {
@@ -51,14 +54,14 @@ namespace OhSnap.Controllers.API
             return HttpStatusCode.OK;
         }
 
-        // GET: /api/Fractures/Details
+        // GET: /api/Injuries/Details
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var injury = db.Fractures.Find (id);
+            var injury = db.Incidents.Find (id);
             if (injury == null)
             {
                 return HttpNotFound();
@@ -67,11 +70,11 @@ namespace OhSnap.Controllers.API
             return Json(injury, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: /api/Fractures/ByUser/:patientid
+        // GET: /api/Injuries/ByUser/:patientid
         public ActionResult ByUser(string id)
         {
-            var fractures = db.Fractures.Where(f => f.Incident.Patient.PersonalNumber == id);
-            return Json(fractures, JsonRequestBehavior.AllowGet);
+            var injuries = db.Incidents.Where(i => i.PersonalNumber == id);
+            return Json(injuries, JsonRequestBehavior.AllowGet);
         }
     }
 }

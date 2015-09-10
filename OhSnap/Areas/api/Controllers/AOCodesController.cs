@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 using AOLoader;
 
-namespace OhSnap.Controllers.api
+namespace OhSnap.Areas.api.Controllers
 {
-    public class AOCodeAPIController : Controller
+    public class AOCodesController : Controller
     {
         private IEnumerable<AOLoader.AOLoader.Classification> _classifications;
 
