@@ -17,6 +17,9 @@ module OhSnap.CreateFracture.Controllers {
     interface CreateFractureScope extends angular.IScope {
         ao_code: string;
         aoPrefixClicked: (prefix: string) => void;
+
+        // Submit the fracture as form data to specified URL
+        submitFracture: (url: string) => void;
     };
 
     createFractureControllers.controller(
@@ -43,6 +46,10 @@ module OhSnap.CreateFracture.Controllers {
                         $scope.ao_code = ao_info.Code;
                     });
                 }
+
+                $scope.submitFracture = (url: string) => {
+                    alert("submitting fracture to " + url);
+                } 
             }
         ]);
 

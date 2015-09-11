@@ -1,7 +1,7 @@
 ﻿@model OhSnap.Models.Fracture
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create fracture";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,48 +18,48 @@
 }
 
 <div ng-app="CreateFractureApp">
-    <div>
-        <!-- AO Code selection modal dialog box. Loaded into template cache and referenced from angular controller. -->
-        <script type="text/ng-template" id="/aoSelectionDialog.html">
-            <div class="modal-header">
-                <h4 class="modal-title">Velg AO Kode</h4>
-            </div>
-            <div class="modal-body row">
-                <div ng-repeat="ao_info in prefixedAoCodes">
-                    <div class="col-md-3">
-                        <img src="/Static/Images/ao-images/{{ao_info.Code}}.jpg" height="50px" ng-click="select(ao_info)" /><br>
-                        <label>{{ao_info.Code}}</label>
-                    </div>
+
+    <!-- AO Code selection modal dialog box. Loaded into template cache and referenced from angular controller. -->
+    <script type="text/ng-template" id="/aoSelectionDialog.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Velg AO Kode</h4>
+        </div>
+        <div class="modal-body row">
+            <div ng-repeat="ao_info in prefixedAoCodes">
+                <div class="col-md-3">
+                    <img src="/Static/Images/ao-images/{{ao_info.Code}}.jpg" height="50px" ng-click="select(ao_info)" /><br>
+                    <label>{{ao_info.Code}}</label>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-            </div>
-        </script>
-    </div>
-
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+  
+    <!-- The main fracture editing form -->  
     <div ng-controller="CreateFractureCtrl">
-        <h2>Create</h2>
+        <h2>Create fracture</h2>
 
-        AO Code: {{ao_code}}
+        <strong>AO Code:</strong> <div ng-if="ao_code == null">not selected</div> {{ao_code}}
 
-        <input ng-model="ao_code" />
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Velg fraktur</div>
-                        <div class="panel-body">
-                            <fracreg-skeleton-image>
-                                <object type="image/svg+xml" id="ao-skeleton-image" data="~/Static/Images/skeleton.svg" height="700px">Your browser does not support SVG</object>
-                            </fracreg-skeleton-image>
+        <div class="row">
+            <div class=" col-md-6 container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Velg fraktur</div>
+                            <div class="panel-body">
+                                <fracreg-skeleton-image>
+                                    <object type="image/svg+xml" id="ao-skeleton-image" data="~/Static/Images/skeleton.svg" height="700px">Your browser does not support SVG</object>
+                                </fracreg-skeleton-image>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="col-md-6">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
@@ -70,21 +70,29 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.AOCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.AOCode, new { htmlAttributes = new { @class = "form-control", ng_model = "ao_code" } })
-                                @Html.ValidationMessageFor(model => model.AOCode, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-default" />
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(
+                                            model => model.AOCode,
+                                            new
+                                            {
+                                                htmlAttributes = new
+                                                {
+                                                    @class = "form-control",                                                   
+                                                    ng_model = "ao_code"
+                                                }
+                                            })
+                                    </div>
+                                </div>
+                                <input type="submit" value="Create" class="btn btn-primary" />
                                 @Html.ActionLink(
                                     "Cancel", "Details", "Patients",
                                     new { id = ViewData["patientID"] }, new { })
                             </div>
                         </div>
                     </div>
-                }
-            </div>
+                }      
+          </div>
+      </div>
+  </div>
