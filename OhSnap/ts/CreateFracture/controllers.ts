@@ -50,6 +50,10 @@ module OhSnap.CreateFracture.Controllers {
                             AOCodes: () => { return AOCodes; }
                         }
                     });
+
+                    modalInstance.result.then(function (ao_info) {
+                        $scope.ao_code = ao_info.Code;
+                    });
                 }
             }
         ]);
@@ -68,7 +72,7 @@ module OhSnap.CreateFracture.Controllers {
         'AOSelectionInstanceCtrl',
         ($scope: any,
             $modalInstance: angular.ui.bootstrap.IModalServiceInstance,
-            prefix: string
+            prefix: string,
             AOCodes: any) => {
             var all_codes = AOCodes.query({}, () => {
                 // Find all ao-codes that match the current prefix
