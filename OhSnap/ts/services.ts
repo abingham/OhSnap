@@ -69,10 +69,17 @@ module OhSnap.Service {
                     });
             }]);
 
+    // The structure of elements served by the AOCodes service (below)
+    export interface AOInfo {
+        Code: string;
+        Name: string[];
+        Description: string;
+    };
+
     ohSnapServices.factory(
         'AOCodes',
         ['$resource',
-            function ($resource: angular.resource.IResourceService) {
-                return $resource('/api/AOCodes/');
-            }]);
+         ($resource: angular.resource.IResourceService) => {
+            return $resource('/api/AOCodes/');
+         }]);
 }

@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../Scripts/typings/angularjs/angular.d.ts"/>
+/// <reference path="../services.ts"/>
 
 'use strict';
 
@@ -13,32 +14,19 @@ module OhSnap.CreateFracture.Controllers {
             'OhSnapServices'
         ]);
 
-    //interface Selection {
-    //    injury: Injury;
-    //    fracture: Fracture;
-    //};
-
     interface CreateFractureScope extends angular.IScope {
         ao_code: string;
         aoPrefixClicked: (prefix: string) => void;
     };
 
-    //interface InjuryResource extends angular.resource.IResourceClass<Injury> {
-    //    byUser: (params: { id: string }, success: Function) => Injury[];
-    //};
-
-    //interface FractureResource extends angular.resource.IResourceClass<Fracture> {
-    //    byInjury: (params: { id: string }, success: Function) => Fracture[];
-    //};
-
     createFractureControllers.controller(
         'CreateFractureCtrl',
         ['$scope',
-            '$modal',
-            'AOCodes',
-            ($scope: CreateFractureScope,
-                $modal,
-                AOCodes) => {
+         '$modal',
+         'AOCodes',
+         ($scope: CreateFractureScope,
+          $modal,
+          AOCodes: angular.resource.IResourceClass<OhSnap.Service.AOInfo>) => {
                 $scope.ao_code = null;
 
                 $scope.aoPrefixClicked = (prefix: string) => {
@@ -51,7 +39,7 @@ module OhSnap.CreateFracture.Controllers {
                         }
                     });
 
-                    modalInstance.result.then(function (ao_info) {
+                    modalInstance.result.then(function (ao_info: OhSnap.Service.AOInfo) {
                         $scope.ao_code = ao_info.Code;
                     });
                 }
@@ -60,25 +48,25 @@ module OhSnap.CreateFracture.Controllers {
 
     // TODO: Put the typing back in place once things have settled down.
     export interface AOSelectionInstanceScope extends angular.IScope {
-        //prefixedAoCodes: FracReg.Controller.AOInfo[];
-
-        //// Available dialog actions.
-        //ok: () => void;
-        //cancel: () => void;
+        // The list of AOInfo's whose code matches the prefix provided to the dialog.
+        prefixedAoCodes: OhSnap.Service.AOInfo[];
+        
+        select: (aoInfo: OhSnap.Service.AOInfo) => void;
+        cancel: () => void;
     }
 
     // Controller for AO Code selection modal dialog box.
     createFractureControllers.controller(
         'AOSelectionInstanceCtrl',
-        ($scope: any,
-            $modalInstance: angular.ui.bootstrap.IModalServiceInstance,
-            prefix: string,
-            AOCodes: any) => {
+        ($scope: AOSelectionInstanceScope,
+         $modalInstance: angular.ui.bootstrap.IModalServiceInstance,
+         prefix: string,
+         AOCodes: angular.resource.IResourceClass<OhSnap.Service.AOInfo>) => {
             var all_codes = AOCodes.query({}, () => {
                 // Find all ao-codes that match the current prefix
                 $scope.prefixedAoCodes = _.filter(
                     all_codes,
-                    (c: any) => {
+                    (c: OhSnap.Service.AOInfo) => {
                         return (c.Code.substring(0, 2) == prefix);
                     });
             });
