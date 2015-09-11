@@ -36,25 +36,19 @@
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>
     </script>
-  
-    <!-- The main fracture editing form -->  
+
+    <!-- The main fracture editing form -->
     <div ng-controller="CreateFractureCtrl">
         <h2>Create fracture</h2>
 
-        <strong>AO Code:</strong> <div ng-if="ao_code == null">not selected</div> {{ao_code}}
-
         <div class="row">
-            <div class=" col-md-6 container-fluid">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Velg fraktur</div>
-                            <div class="panel-body">
-                                <fracreg-skeleton-image>
-                                    <object type="image/svg+xml" id="ao-skeleton-image" data="~/Static/Images/skeleton.svg" height="700px">Your browser does not support SVG</object>
-                                </fracreg-skeleton-image>
-                            </div>
-                        </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Velg fraktur</div>
+                    <div class="panel-body">
+                        <fracreg-skeleton-image>
+                            <object type="image/svg+xml" id="ao-skeleton-image" data="~/Static/Images/skeleton.svg" height="700px">Your browser does not support SVG</object>
+                        </fracreg-skeleton-image>
                     </div>
                 </div>
             </div>
@@ -70,29 +64,37 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <div class="form-group">
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(
-                                            model => model.AOCode,
-                                            new
-                                            {
-                                                htmlAttributes = new
-                                                {
-                                                    @class = "form-control",                                                   
-                                                    ng_model = "ao_code"
-                                                }
-                                            })
-                                    </div>
-                                </div>
-                                <input type="submit" value="Create" class="btn btn-primary" />
-                                @Html.ActionLink(
-                                    "Cancel", "Details", "Patients",
-                                    new { id = ViewData["patientID"] }, new { })
+                            <div class="col-md-2">
+                                @Html.LabelFor(
+                                model => model.AOCode,
+                                new
+                                {
+
+                                    @class = "control-label"
+
+                                })
+                            </div>
+
+                            <div class="col-md-10">
+                                @Html.EditorFor(
+                                    model => model.AOCode,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            ng_model = "ao_code"
+                                        }
+                                    })
                             </div>
                         </div>
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                        @Html.ActionLink(
+                            "Cancel", "Details", "Patients",
+                            new { id = ViewData["patientID"] }, new { })
                     </div>
-                }      
-          </div>
-      </div>
-  </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
