@@ -1066,6 +1066,7 @@
     <Compile Include="Areas\api\Controllers\JsonNetController.cs" />
     <Compile Include="Areas\api\Controllers\JsonNetResult.cs" />
     <Compile Include="Areas\api\Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\ConsultationsController.cs" />
     <Compile Include="Controllers\FracturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidentsController.cs" />
@@ -1120,6 +1121,7 @@
     <Folder Include="Areas\api\Models\" />
     <Folder Include="Areas\api\Views\Shared\" />
     <Folder Include="Views\AOCodeAPI\" />
+    <Folder Include="Views\Consultations\" />
     <Folder Include="Views\Procedures\" />
   </ItemGroup>
   <ItemGroup>

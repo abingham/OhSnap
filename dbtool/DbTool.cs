@@ -23,6 +23,36 @@ namespace OhSnap.DbTool
             };
             db.Incidents.Add(incident);
 
+            var frac1 = new Fracture()
+            {
+                AOCode = "33C2",
+                IncidentID = incident.ID
+            };
+            db.Fractures.Add(frac1);
+
+            var frac2 = new Fracture()
+            {
+                AOCode = "22B1",
+                IncidentID = incident.ID
+            };
+            db.Fractures.Add(frac2);
+
+            var consultation = new Consultation();
+            db.Consultations.Add(consultation);
+
+            var procedure = new Procedure() {
+                ConsultationID = consultation.ID,
+                FractureID = frac1.ID
+            };
+            db.Procedures.Add(procedure);
+
+            procedure = new Procedure()
+            {
+                ConsultationID = consultation.ID,
+                FractureID = frac2.ID
+            };
+            db.Procedures.Add(procedure);
+
             //patient = new Patient () {
             //    FirstName = "Joe", LastName = "Schmoe", Age = 35
             //};
@@ -42,9 +72,9 @@ namespace OhSnap.DbTool
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
 
-            var db = new DbContext ();
-            //addPatients (db);    
-            //db.SaveChanges ();
+            var db = new DbContext ();          
+            addPatients (db);    
+            db.SaveChanges ();
 
             foreach (var patient in db.Patients)
             {
@@ -60,6 +90,12 @@ namespace OhSnap.DbTool
                     {
                         System.Console.WriteLine("        fracture: {0} {1} {2}",
                             fracture.AOCode, fracture.ID, fracture.IncidentID);
+
+                        foreach (var procedure in fracture.Procedures)
+                        {
+                            Console.WriteLine("            procedure: {0}, consultation: {1}",
+                                procedure.ID, procedure.Consultation.ID);
+                        }
                     }
 
                     var frac = new Fracture()
