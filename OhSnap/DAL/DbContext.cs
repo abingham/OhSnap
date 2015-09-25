@@ -10,6 +10,7 @@ namespace OhSnap.DAL
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Incident> Incidents { get; set; }
         public DbSet<Fracture> Fractures { get; set; }
+        public DbSet<Consultation> Consultations { get; set; }
+        public DbSet<Procedure> Procedures { get; set; }
     }
 }
-

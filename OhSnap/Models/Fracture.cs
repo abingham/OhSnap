@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
@@ -19,6 +20,8 @@ namespace OhSnap.Models
         public string AOCode { get; set; }
 
         public virtual Incident Incident { get; set; }
+
+        public virtual ICollection<Procedure> Procedures { get; set; }
 
         public Fracture()
         {
