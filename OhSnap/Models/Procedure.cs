@@ -20,6 +20,8 @@ namespace OhSnap.Models
         public virtual Fracture Fracture { get; set; }
         public virtual Consultation Consultation { get; set; }
 
+        public string Repositioning { get; set; }
+
         public Procedure()
         {
             ID = Guid.NewGuid();
@@ -43,7 +45,5 @@ namespace OhSnap.Models
         // repositioning of ligament
         // bone operation
         // preoperative complications
-
-        // fracture-id? consultation-id?
     }
 }

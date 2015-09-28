@@ -67,8 +67,7 @@
                 <td>INCIDENT</td>
                 <td>
                     @Html.DisplayFor(modelItem => incident.InjuryDate)
-                </td>
-                <td>
+                
                     @Html.DisplayFor(modelItem => incident.InjuryHour)
                 </td>
                 
@@ -89,7 +88,7 @@
             foreach (var fracture in incident.Fractures)
             {
                 <tr>
-                    <td>|_ FRACTURE</td>
+                    <td>|__ FRACTURE</td>
                     <td>
                         @Html.DisplayFor(modelItem => fracture.AOCode)
                     </td>
@@ -98,7 +97,31 @@
                         @*@Html.ActionLink("Details", "Details", "Fractures", new { id = fracture.ID }, new { }) |*@
                         @Html.ActionLink("Delete", "Delete", "Fractures", new { id = fracture.ID }, new { })
                     </td>
+                    <td>
+                        @Html.ActionLink("Add procedure",
+                            "Create",
+                            "Procedures",
+                            new { parentID = fracture.ID },
+                            null)
+                    </td>
                 </tr>
+
+                foreach (var procedure in fracture.Procedures)
+                {
+                    <tr>
+                        <td>|____ PROCEDURE</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => procedure.Repositioning)
+                            consultation: @Html.DisplayFor(modelItem => procedure.ConsultationID)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Procedures", new { id = procedure.ID }, new { }) |
+                            @*@Html.ActionLink("Details", "Details", "Fractures", new { id = fracture.ID }, new { }) |*@
+                            @Html.ActionLink("Delete", "Delete", "Procedures", new { id = procedure.ID }, new { })
+                        </td>
+                        <td></td>                        
+                    </tr>
+                }
             }
         }
 

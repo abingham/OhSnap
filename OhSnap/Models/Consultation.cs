@@ -14,6 +14,8 @@ namespace OhSnap.Models
 
         public string Location { get; set; }
 
+        public DateTime Timestamp { get; set; }
+
         // Anaesthesia
         // Repoperation? If so, reason. (Can this be derived from other data?) 
         // time, date

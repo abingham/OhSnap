@@ -41,14 +41,14 @@ namespace OhSnap.DbTool
             db.Consultations.Add(consultation);
 
             var procedure = new Procedure() {
-                ConsultationID = consultation.ID,
+                // ConsultationID = consultation.ID,
                 FractureID = frac1.ID
             };
             db.Procedures.Add(procedure);
 
             procedure = new Procedure()
             {
-                ConsultationID = consultation.ID,
+                // ConsultationID = consultation.ID,
                 FractureID = frac2.ID
             };
             db.Procedures.Add(procedure);
@@ -93,8 +93,10 @@ namespace OhSnap.DbTool
 
                         foreach (var procedure in fracture.Procedures)
                         {
-                            Console.WriteLine("            procedure: {0}, consultation: {1}",
-                                procedure.ID, procedure.Consultation.ID);
+                            Console.WriteLine("            procedure: {0}",
+                                procedure.ID 
+                                // procedure.Consultation.ID
+                                );
                         }
                     }
 

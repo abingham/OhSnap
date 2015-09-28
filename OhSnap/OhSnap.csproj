@@ -1042,6 +1042,9 @@
     <Content Include="Views\Fractures\Delete.cshtml" />
     <Content Include="Views\Fractures\Edit.cshtml" />
     <Content Include="Static\ao_codes.yaml" />
+    <Content Include="Views\Procedures\Create.cshtml" />
+    <Content Include="Views\Procedures\Delete.cshtml" />
+    <Content Include="Views\Procedures\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1122,7 +1125,6 @@
     <Folder Include="Areas\api\Views\Shared\" />
     <Folder Include="Views\AOCodeAPI\" />
     <Folder Include="Views\Consultations\" />
-    <Folder Include="Views\Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AOLoader\AOLoader.csproj">
