@@ -16,7 +16,10 @@ namespace OhSnap.Controllers
         public ActionResult Create(Guid parentID)
         {
             var fracture = db.Fractures.Find(parentID);
-            ViewData["patientID"] = fracture.Incident.PersonalNumber;
+            ViewBag.patientID = fracture.Incident.PersonalNumber;
+            ViewBag.consultations = db.Consultations.Where(
+                c => c.Procedures.Any(
+                    p => p.Fracture.Incident.PersonalNumber == fracture.Incident.PersonalNumber));
             return View();
         }
 
@@ -30,12 +33,21 @@ namespace OhSnap.Controllers
                 {
                     // TODO: We need to also check to see if a consultation ID was passed in, i.e. if we're reusing a consultation.
                     // TODO: timestamp = date + time                
-                    var consultation = new Consultation()
+                    Consultation consultation;
+                    if (collection["ConsultationID"] != "null")
                     {
-                        Location = collection["Consultation.Location"],
-                        Timestamp = DateTime.Parse(collection["Consultation.Timestamp"])
-                    };
-                    db.Consultations.Add(consultation);
+                        consultation = db.Consultations.Find(
+                            new System.Guid(collection["ConsultationID"]));
+                    }
+                    else
+                    {
+                        consultation = new Consultation()
+                        {
+                            Location = collection["Consultation.Location"],
+                            Timestamp = DateTime.Parse(collection["Consultation.Timestamp"])
+                        };
+                        db.Consultations.Add(consultation);
+                    }
 
                     var procedure = new Procedure()
                     {

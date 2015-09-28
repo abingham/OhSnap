@@ -16,62 +16,93 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Procedure</h4>
         <hr />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Consultation.Location, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(
-                    model => model.Consultation.Location,
-                    new
-                    {
-                        htmlAttributes = new
-                        {
-                            @class = "form-control"
-                        },
-                    })
-                @Html.ValidationMessageFor(model => model.Consultation.Location, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#new-consultation" role="tab" data-toggle="tab">New consultation</a></li>
+                            <li role="presentation"><a href="#existing-consultation" role="tab" data-toggle="tab">Existing consultation</a></li>
+                        </ul>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Consultation.Timestamp, "Date", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(
-                    model => model.Consultation.Timestamp,
-                    new
-                    {
-                        htmlAttributes = new {
-                            @class = "form-control",
-                            data_provide = "datepicker",
-                            data_date_format = "yyyy-mm-dd"
-                        },
-                    })
-                @Html.ValidationMessageFor(model => model.Consultation.Timestamp, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="new-consultation">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Consultation.Location, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(
+                                            model => model.Consultation.Location,
+                                            new
+                                            {
+                                                htmlAttributes = new
+                                                {
+                                                    @class = "form-control"
+                                                }
+                                            })
+                                            @Html.ValidationMessageFor(model => model.Consultation.Location, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-        <div class="form-group">            
-            @Html.LabelFor(model => model.Repositioning, "Repositioning", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Consultation.Timestamp, "Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(
+                                            model => model.Consultation.Timestamp,
+                                            new
+                                            {
+                                                htmlAttributes = new
+                                                {
+                                                    @class = "form-control",
+                                                    data_provide = "datepicker",
+                                                    data_date_format = "yyyy-mm-dd"
+                                                }
+                                            })
+                                        @Html.ValidationMessageFor(model => model.Consultation.Timestamp, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="existing-consultation">
+                                <select class="form-control" name="ConsultationID">
+                                    <option value="null">None</option>
+                                    @foreach (var consultation in ViewBag.consultations)
+                                    {
+                                        <option value="@consultation.ID">@consultation.Location, @consultation.Timestamp</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Repositioning, "Repositioning", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(
                     model => model.Repositioning,
-                    new {
+                    new
+                    {
                         htmlAttributes = new { @class = "form-control" }
                     })
-                @Html.ValidationMessageFor(model => model.Repositioning, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.Repositioning, "", new { @class = "text-danger" })
+                    </div>
+                </div>                
             </div>
         </div>
-
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
                 @Html.ActionLink(
                     "Cancel", "Details", "Patients",
-                    new { id = ViewData["patientID"] }, new { })
+                    new { id = ViewBag.patientData }, new { })
             </div>
         </div>
     </div>
