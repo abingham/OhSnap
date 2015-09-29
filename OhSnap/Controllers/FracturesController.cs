@@ -13,7 +13,7 @@ namespace OhSnap.Controllers
         public ActionResult Create(Guid parentID)
         {
             var incident = db.Incidents.Find(parentID);
-            ViewData["patientID"] = incident.PersonalNumber;
+            ViewBag.patientID = incident.PersonalNumber;
             return View();
         }
         

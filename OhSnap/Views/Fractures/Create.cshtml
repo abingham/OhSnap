@@ -91,7 +91,7 @@
                         <input type="submit" value="Create" class="btn btn-primary" />
                         @Html.ActionLink(
                             "Cancel", "Details", "Patients",
-                            new { id = ViewData["patientID"] }, new { })
+                            new { id = ViewBag.patientID }, new { })
                     </div>
                 }
             </div>
